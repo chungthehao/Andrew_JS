@@ -1,0 +1,26 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "input.js",
+  "scripts": {
+    "chay-production": "webpack --mode production",
+    "chay-dev-server": "webpack-dev-server --mode development",
+    "serve-di-ku": "live-server public",
+    "chay-webpack-babel": "webpack",
+    "tu-chay-webpack-babel": "webpack --watch",
+    "build-di-ku": "babel src/index.js --out-file public/scripts/bundle.js --presets env",
+    "tu-build-di-ku": "babel src/index.js --out-file public/scripts/bundle.js --presets env --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "live-server": "^1.2.0",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.3"
+  }
+}
