@@ -18,3 +18,12 @@ let otherValue = square(10);
 //console.log(value, otherValue);
 
 // Challenge Area
+let convertFahrenheitToCelsius = function (fahrenheit) {
+    let celsius = (fahrenheit - 32) * 5 / 9
+    return celsius
+}
+
+let degree1 = convertFahrenheitToCelsius(32)
+let degree2 = convertFahrenheitToCelsius(68)
+
+console.log(degree1, degree2)
