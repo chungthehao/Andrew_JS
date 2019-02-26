@@ -30,7 +30,10 @@ console.log(scoreText)
  * total, tipPercent .2
  */
 let getTip = function (total, tipPercent = .2) {
-    return total * tipPercent
+    // return total * tipPercent
+
+    // A 25% tip on $40 would be $10.
+    return `A ${tipPercent * 100}% tip on $${total} would be $${tipPercent * total}.`
 }
 
 let tip1 = getTip(100)
