@@ -9,7 +9,7 @@ let otherAccount = myAccount
 otherAccount.income = 1000
 
 let addExpense = function (account, amount) {
-    // account = {} // làm mất cái địa chỉ của nó, cho nó trỏ tới 1 địa chỉ mới, địa chỉ của empty object (làm mất cái binding)
+    // account = {} // làm mất cái địa chỉ của nó, cho nó trỏ tới 1 địa chỉ mới, địa chỉ của empty object (làm mất cái binding cũ trước đó)
 
     // Trong function này, account object sẽ trỏ tới cùng 1 object với myAccount truyền vào (copied by reference)
     account.expenses += amount
