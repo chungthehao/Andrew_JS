@@ -16,6 +16,11 @@ const notes = ['Note 1', 'Note 2', 'Note 3']
 /* use bracket notation */
 notes[2] = 'This is now the new note 3' // replace the third
 
+notes.forEach(function (item, index) {
+    console.log(index)
+    console.log(item)
+})
+
 console.log(notes)
 // console.log(notes.length)
 // console.log(notes[0])
