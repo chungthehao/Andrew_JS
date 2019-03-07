@@ -16,13 +16,32 @@ const notes = ['Note 1', 'Note 2', 'Note 3']
 /* use bracket notation */
 notes[2] = 'This is now the new note 3' // replace the third
 
-notes.forEach(function (item, index) {
-    console.log(index)
-    console.log(item)
-})
+// notes.forEach(function (item, index) {
+//     console.log(index)
+//     console.log(item)
+// })
 
 console.log(notes)
 // console.log(notes.length)
 // console.log(notes[0])
 // console.log(notes[notes.length - 1]) // the last item
 // console.log(notes[9999999999999]) // undefined
+
+// Counting... 1
+// for (let count = 2; count >= 0; count--) {
+//     console.log(count)
+// }
+
+/**
+ * Tuong duong forEach
+ */
+// for (let count = 0; count < notes.length; count++) {
+//     console.log(count, notes[count])
+// }
+
+/**
+ * Reverse
+ */
+for (let count = notes.length-1; count >= 0; count--) {
+    console.log(count, notes[count])
+}
