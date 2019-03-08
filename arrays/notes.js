@@ -1,4 +1,4 @@
-const notes = ['Note 1', 'Note 2', 'Note 3']
+// const notes = ['Note 1', 'Note 2', 'Note 3']
 
 /* from the end */
 // console.log(notes.pop()) // remove item and return value
@@ -14,14 +14,14 @@ const notes = ['Note 1', 'Note 2', 'Note 3']
 // notes.splice(1, 1, 'This is the new second item') // replace the second
 
 /* use bracket notation */
-notes[2] = 'This is now the new note 3' // replace the third
+// notes[2] = 'This is now the new note 3' // replace the third
 
 // notes.forEach(function (item, index) {
 //     console.log(index)
 //     console.log(item)
 // })
 
-console.log(notes)
+// console.log(notes)
 // console.log(notes.length)
 // console.log(notes[0])
 // console.log(notes[notes.length - 1]) // the last item
@@ -42,6 +42,45 @@ console.log(notes)
 /**
  * Reverse
  */
-for (let count = notes.length-1; count >= 0; count--) {
-    console.log(count, notes[count])
-}
+// for (let count = notes.length-1; count >= 0; count--) {
+//     console.log(count, notes[count])
+// }
+
+// console.log(notes.indexOf('Note 2'))
+
+//------------------------------------------------------
+
+let notes = [/* {}, */ {
+    title: 'My next trip',
+    body: 'I would like to go to Spain'
+}, {
+    title: 'Habbits to work on',
+    body: 'Exercise. Eating a bit better'
+}, {
+    title: 'Office modification',
+    body: 'Get a new seat'
+}]
+
+console.log(notes)
+
+/**
+ * indexOf method
+ */
+// console.log(notes.indexOf({})) // KHONG THE DUNG 'indexOf' de search obj trong 1 array dc ---> Dung findIndex
+
+// console.log({} === {}) // false, vi 2 thang co dia chi memory khac nhau (ko lien quan ve gia tri, properties... ma xet ve memory co la 1?)
+
+// let someObj = {} 
+// let otherObj = someObj
+// console.log(someObj === otherObj) // true, vi 2 thang co cung memory, cung la 1 thang
+
+/**
+ * findIndex method
+ */
+// - Callback func gets called one time for each item in the array.
+// - Toi item nao no tim thay khop (match) thi stop lien.
+const index = notes.findIndex(function (note, index) { 
+    console.log(index, note)
+    return note.title === 'Habbits to work on' // the search criteria
+})
+console.log(index)
