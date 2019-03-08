@@ -61,7 +61,26 @@ let notes = [/* {}, */ {
     body: 'Get a new seat'
 }]
 
-console.log(notes)
+const findNote = function (notes, noteTitle) {
+    return notes.find(function (note, index) {
+        return note.title.toLowerCase() === noteTitle.toLowerCase()
+    })
+}
+
+/**
+ * Viet findNote func dua vao findIndex method
+ */
+// const findNote = function (notes, noteTitle) {
+//     const index = notes.findIndex(function (note, index) {
+//         return note.title.toLowerCase() === noteTitle.toLowerCase()
+//     })
+//     return notes[index]
+// }
+
+const note = findNote(notes, 'some other office modification')
+console.log(note)
+
+// console.log(notes)
 
 /**
  * indexOf method
@@ -79,8 +98,8 @@ console.log(notes)
  */
 // - Callback func gets called one time for each item in the array.
 // - Toi item nao no tim thay khop (match) thi stop lien.
-const index = notes.findIndex(function (note, index) { 
-    console.log(index, note)
-    return note.title === 'Habbits to work on' // the search criteria
-})
-console.log(index)
+// const index = notes.findIndex(function (note, index) { 
+//     console.log(index, note)
+//     return note.title === 'Habbits to work on' // the search criteria
+// })
+// console.log(index)
