@@ -67,6 +67,29 @@ const findNote = function (notes, noteTitle) {
     })
 }
 
+const findNotes = function (notes, search) {
+    return notes.filter(function (note) {
+        const isTitleMatch = note.title.toLowerCase().includes(search.toLowerCase())
+        const isBodyMatch = note.body.toLowerCase().includes(search.toLowerCase())
+        return isTitleMatch || isBodyMatch
+    })
+}
+
+console.log(findNotes(notes, 'eating'))
+
+/**
+ * filter method
+ */
+// const filteredNotes = notes.filter(function (note, index) {
+//     // return false // tra ve 1 mang rong
+//     // return true // copy ra 1 mang moi
+//     const isTitleMatch = note.title.toLowerCase().includes('office')
+//     const isBodyMatch = note.body.toLowerCase().includes('office')
+//     console.log(isTitleMatch, isBodyMatch)
+//     return isTitleMatch || isBodyMatch
+// })
+// console.log(filteredNotes)
+
 /**
  * Viet findNote func dua vao findIndex method
  */
@@ -77,8 +100,8 @@ const findNote = function (notes, noteTitle) {
 //     return notes[index]
 // }
 
-const note = findNote(notes, 'some other office modification')
-console.log(note)
+// const note = findNote(notes, 'some other office modification')
+// console.log(note)
 
 // console.log(notes)
 

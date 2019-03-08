@@ -15,7 +15,7 @@ const todos = [{
     completed: false
 }, {
     text: 'Do work',
-    completed: false
+    completed: true
 }, {
     text: 'Exercise',
     completed: true
@@ -30,9 +30,17 @@ const removeTodo = function (todos, text) {
     }
 }
 
-console.log(todos)
-removeTodo(todos, 'buy food')
-console.log(todos)
+const getThingsToDo = function (todos) {
+    return todos.filter(function (todo) {
+        return ! todo.completed
+    })
+}
+
+console.log(getThingsToDo(todos))
+
+// console.log(todos)
+// removeTodo(todos, 'buy food')
+// console.log(todos)
 
 // Delete the 3rd item
 // todos.splice(2, 1)
