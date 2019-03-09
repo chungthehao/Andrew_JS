@@ -18,7 +18,7 @@ const todos = [{
     completed: true
 }, {
     text: 'Exercise',
-    completed: true
+    completed: false
 }]
 
 const removeTodo = function (todos, text) {
@@ -36,7 +36,22 @@ const getThingsToDo = function (todos) {
     })
 }
 
-console.log(getThingsToDo(todos))
+const sortTodos = function (todos) {
+    todos.sort(function (todo1, todo2) {
+        if (todo1.completed === todo2.completed) {
+            return 0
+        } else if (todo1.completed === false) {
+            return -1
+        } else {
+            return 1
+        }
+    })
+}
+
+sortTodos(todos)
+console.log(todos)
+
+// console.log(getThingsToDo(todos))
 
 // console.log(todos)
 // removeTodo(todos, 'buy food')

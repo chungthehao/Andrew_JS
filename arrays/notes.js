@@ -51,7 +51,7 @@
 //------------------------------------------------------
 
 let notes = [/* {}, */ {
-    title: 'My next trip',
+    title: 'my next trip',
     body: 'I would like to go to Spain'
 }, {
     title: 'Habbits to work on',
@@ -61,21 +61,43 @@ let notes = [/* {}, */ {
     body: 'Get a new seat'
 }]
 
-const findNote = function (notes, noteTitle) {
-    return notes.find(function (note, index) {
-        return note.title.toLowerCase() === noteTitle.toLowerCase()
+// console.log('a' > 'b') // so sanh 2 string la so sanh thu tu alphabetically
+// console.log('March' < 'January') // so sanh M voi J
+// console.log('a' < 'A') // HOA hay thuong la quan trong (ma ASCII)
+
+const sortNotes = function (notes) {
+    // sort method gets called with 2 individual items
+    notes.sort(function (note1, note2) {
+        // if note1 should come first -> return -1
+        // if note1 should come after -> return +1 
+        // both of them don't have their order changed -> return 0
+        if (note1.title.toLowerCase() < note2.title.toLowerCase()) {
+            return -1
+        } else if (note1.title.toLowerCase() > note2.title.toLowerCase()) {
+            return 1
+        } else {
+            return 0
+        }
     })
 }
+sortNotes(notes)
+console.log(notes)
 
-const findNotes = function (notes, search) {
-    return notes.filter(function (note) {
-        const isTitleMatch = note.title.toLowerCase().includes(search.toLowerCase())
-        const isBodyMatch = note.body.toLowerCase().includes(search.toLowerCase())
-        return isTitleMatch || isBodyMatch
-    })
-}
+// const findNote = function (notes, noteTitle) {
+//     return notes.find(function (note, index) {
+//         return note.title.toLowerCase() === noteTitle.toLowerCase()
+//     })
+// }
 
-console.log(findNotes(notes, 'eating'))
+// const findNotes = function (notes, search) {
+//     return notes.filter(function (note) {
+//         const isTitleMatch = note.title.toLowerCase().includes(search.toLowerCase())
+//         const isBodyMatch = note.body.toLowerCase().includes(search.toLowerCase())
+//         return isTitleMatch || isBodyMatch
+//     })
+// }
+
+// console.log(findNotes(notes, 'eating'))
 
 /**
  * filter method
