@@ -40,8 +40,14 @@ let notes = [{
 
 //------------------------------------------------------------------------
 
-document.querySelector('button').addEventListener('click', function (e) {
+document.querySelector('#create-note').addEventListener('click', function (e) {
     // console.log('Did this work?')
     // console.log(e)
     e.target.textContent = 'The button was clicked.'
+})
+
+document.querySelector('#remove-all').addEventListener('click', function () {
+    document.querySelectorAll('.note').forEach(function (note) {
+        note.remove()
+    })
 })
