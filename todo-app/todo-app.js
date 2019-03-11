@@ -43,3 +43,12 @@ todos.forEach(function (todo) {
 //         p.remove()
 //     }
 // })
+
+//--------------------------------------------------------------------
+
+/**
+ * Listen for new todo creation
+ */
+document.querySelector('button').addEventListener('click', function (e) {
+    console.log('I\'m adding a new todo')
+})
