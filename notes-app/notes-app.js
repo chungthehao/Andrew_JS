@@ -1,4 +1,4 @@
-let notes = [{
+const notes = [{
     title: 'my next trip',
     body: 'I would like to go to Spain'
 }, {
@@ -40,6 +40,30 @@ let notes = [{
 
 //------------------------------------------------------------------------
 
+const filters = {
+    searchText: ''
+}
+
+const renderNotes = function (notes, filters) {
+    const filteredNotes = notes.filter(function (note) {
+        return note.title.toLowerCase().includes(filters.searchText.toLowerCase()) // || note.body.toLowerCase().includes(filters.searchText)
+    })
+
+    document.querySelector('#notes').innerHTML = '' // Xóa cái cũ trước khi re-render cái list notes mới
+    
+    // console.log(filteredNotes)
+    filteredNotes.forEach(function (note) {
+        // Tạo element
+        const p = document.createElement('p')
+        // Insert nội dung
+        p.textContent = note.title
+        // Rendering
+        document.querySelector('#notes').appendChild(p)
+    })
+}
+
+renderNotes(notes, filters) // chạy lần đầu, initialize
+
 document.querySelector('#create-note').addEventListener('click', function (e) {
     // console.log('Did this work?')
     // console.log(e)
@@ -54,5 +78,8 @@ document.querySelector('#remove-all').addEventListener('click', function () {
 
 // document.querySelector('#search-text').addEventListener('change', function (e) {
 document.querySelector('#search-text').addEventListener('input', function (e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
+
+    filters.searchText = e.target.value
+    renderNotes(notes, filters)
 })
