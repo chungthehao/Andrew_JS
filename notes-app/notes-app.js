@@ -9,6 +9,66 @@ const notes = [{
     body: 'Get a new seat'
 }]
 
+const filters = {
+    searchText: ''
+}
+
+const renderNotes = function (notes, filters) {
+    const filteredNotes = notes.filter(function (note) {
+        return note.title.toLowerCase().includes(filters.searchText.toLowerCase()) // || note.body.toLowerCase().includes(filters.searchText)
+    })
+
+    document.querySelector('#notes').innerHTML = '' // Xóa cái cũ trước khi re-render cái list notes mới
+    
+    filteredNotes.forEach(function (note) {
+        // Tạo element
+        const p = document.createElement('p')
+        // Insert nội dung
+        p.textContent = note.title
+        // Rendering
+        document.querySelector('#notes').appendChild(p)
+    })
+}
+
+renderNotes(notes, filters) // chạy lần đầu, initialize
+
+document.querySelector('#create-note').addEventListener('click', function (e) {
+    e.target.textContent = 'The button was clicked.'
+})
+
+// document.querySelector('#search-text').addEventListener('change', function (e) {
+document.querySelector('#search-text').addEventListener('input', function (e) {
+    filters.searchText = e.target.value // Update searchText khi ng dùng gõ search
+    renderNotes(notes, filters) // render lại nội dung phù hợp với searchText mới
+})
+
+document.querySelector('#name-form').addEventListener('submit', function (e) {
+    e.preventDefault(); // Mặc định thì form sẽ reload lại trang khi bấm button hoặc nhấp enter, rồi thêm param lên trên URL
+
+    console.log(e.target.elements.firstName.value) // e.target.elements.firstName: chính là JS obj đại diện cho cái input đó
+    e.target.elements.firstName.value = '' // Xóa nội dung thẻ input firstName đi sau khi in ra console
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * DOM - Document Object Model
  * 
@@ -38,48 +98,8 @@ const notes = [{
 // newParagraph.textContent = 'This is a new element from Javascript.'
 // document.querySelector('body').appendChild(newParagraph)
 
-//------------------------------------------------------------------------
-
-const filters = {
-    searchText: ''
-}
-
-const renderNotes = function (notes, filters) {
-    const filteredNotes = notes.filter(function (note) {
-        return note.title.toLowerCase().includes(filters.searchText.toLowerCase()) // || note.body.toLowerCase().includes(filters.searchText)
-    })
-
-    document.querySelector('#notes').innerHTML = '' // Xóa cái cũ trước khi re-render cái list notes mới
-    
-    // console.log(filteredNotes)
-    filteredNotes.forEach(function (note) {
-        // Tạo element
-        const p = document.createElement('p')
-        // Insert nội dung
-        p.textContent = note.title
-        // Rendering
-        document.querySelector('#notes').appendChild(p)
-    })
-}
-
-renderNotes(notes, filters) // chạy lần đầu, initialize
-
-document.querySelector('#create-note').addEventListener('click', function (e) {
-    // console.log('Did this work?')
-    // console.log(e)
-    e.target.textContent = 'The button was clicked.'
-})
-
-document.querySelector('#remove-all').addEventListener('click', function () {
-    document.querySelectorAll('.note').forEach(function (note) {
-        note.remove()
-    })
-})
-
-// document.querySelector('#search-text').addEventListener('change', function (e) {
-document.querySelector('#search-text').addEventListener('input', function (e) {
-    // console.log(e.target.value)
-
-    filters.searchText = e.target.value // Update searchText khi ng dùng gõ search
-    renderNotes(notes, filters) // render lại nội dung phù hợp với searchText mới
-})
+// document.querySelector('#remove-all').addEventListener('click', function () {
+//     document.querySelectorAll('.note').forEach(function (note) {
+//         note.remove()
+//     })
+// })

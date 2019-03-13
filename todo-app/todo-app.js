@@ -68,6 +68,40 @@ document.querySelector('#search-todo').addEventListener('input', function (e) {
     renderTodos(todos, filters)
 })
 
+document.querySelector('#add-todo-form').addEventListener('submit', function (e) {
+    e.preventDefault()
+
+    const newTodo = e.target.elements.toDo.value
+    e.target.elements.toDo.value = '' // wipe the input
+
+    // Update todos array
+    todos.push({
+        text: newTodo,
+        completed: false
+    })
+
+    renderTodos(todos, filters) // Re-render todo list
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const ps = document.querySelectorAll('p')
 
 // ps.forEach(function (p) {
@@ -75,19 +109,3 @@ document.querySelector('#search-todo').addEventListener('input', function (e) {
 //         p.remove()
 //     }
 // })
-
-//--------------------------------------------------------------------
-
-/**
- * Listen for new todo creation
- */
-document.querySelector('#add-todo').addEventListener('click', function (e) {
-    console.log('I\'m adding a new todo')
-})
-
-/**
- * Listen for todo text change
- */
-document.querySelector('#new-todo-text').addEventListener('input', function (e) {
-    console.log(e.target.value)
-})
