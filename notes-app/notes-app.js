@@ -80,6 +80,6 @@ document.querySelector('#remove-all').addEventListener('click', function () {
 document.querySelector('#search-text').addEventListener('input', function (e) {
     // console.log(e.target.value)
 
-    filters.searchText = e.target.value
-    renderNotes(notes, filters)
+    filters.searchText = e.target.value // Update searchText khi ng dùng gõ search
+    renderNotes(notes, filters) // render lại nội dung phù hợp với searchText mới
 })
