@@ -16,7 +16,8 @@ const todos = [{
 }]
 
 const filters = {
-    searchText: ''
+    searchText: '',
+    hideCompleted: false
 }
 
 /**
@@ -31,7 +32,10 @@ const renderTodos = function (todos, filters) {
 
     // Lọc những todos match với searchText
     const filterdTodos = todos.filter(function (todo) {
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        if ( ! filters.hideCompleted) {
+            return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        }
+        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase()) && !todo.completed
     })
 
     // Recalculate incomplete todos and update notice message
@@ -83,6 +87,12 @@ document.querySelector('#add-todo-form').addEventListener('submit', function (e)
     renderTodos(todos, filters) // Re-render todo list
 })
 
+document.querySelector('#hide-completed').addEventListener('change', function (e) {
+    // Update
+    filters.hideCompleted = e.target.checked
+    // Re-render lại list todos
+    renderTodos(todos, filters)
+})
 
 
 

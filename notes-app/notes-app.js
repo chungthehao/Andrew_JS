@@ -42,13 +42,9 @@ document.querySelector('#search-text').addEventListener('input', function (e) {
     renderNotes(notes, filters) // render lại nội dung phù hợp với searchText mới
 })
 
-document.querySelector('#name-form').addEventListener('submit', function (e) {
-    e.preventDefault(); // Mặc định thì form sẽ reload lại trang khi bấm button hoặc nhấp enter, rồi thêm param lên trên URL
-
-    console.log(e.target.elements.firstName.value) // e.target.elements.firstName: chính là JS obj đại diện cho cái input đó
-    e.target.elements.firstName.value = '' // Xóa nội dung thẻ input firstName đi sau khi in ra console
+document.querySelector('#for-fun').addEventListener('change', function (e) {
+    console.log(e.target.checked)
 })
-
 
 
 
@@ -102,4 +98,11 @@ document.querySelector('#name-form').addEventListener('submit', function (e) {
 //     document.querySelectorAll('.note').forEach(function (note) {
 //         note.remove()
 //     })
+// })
+
+// document.querySelector('#name-form').addEventListener('submit', function (e) {
+//     e.preventDefault(); // Mặc định thì form sẽ reload lại trang khi bấm button hoặc nhấp enter, rồi thêm param lên trên URL
+
+//     console.log(e.target.elements.firstName.value) // e.target.elements.firstName: chính là JS obj đại diện cho cái input đó
+//     e.target.elements.firstName.value = '' // Xóa nội dung thẻ input firstName đi sau khi in ra console
 // })
