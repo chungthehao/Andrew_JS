@@ -13,6 +13,19 @@ const filters = {
     searchText: ''
 }
 
+// const user = {
+//     name: 'Henry',
+//     age: 27
+// }
+// const userJSON = JSON.stringify(user)
+// console.log(userJSON)
+// localStorage.setItem('user', userJSON)
+const userJSON = localStorage.getItem('user')
+const user = JSON.parse(userJSON)
+console.log(user)
+console.log(user.name)
+console.log(user.age)
+
 const renderNotes = function (notes, filters) {
     const filteredNotes = notes.filter(function (note) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase()) // || note.body.toLowerCase().includes(filters.searchText)
@@ -107,3 +120,16 @@ document.querySelector('#filter-by').addEventListener('change', function (e) {
 //     console.log(e.target.elements.firstName.value) // e.target.elements.firstName: chính là JS obj đại diện cho cái input đó
 //     e.target.elements.firstName.value = '' // Xóa nội dung thẻ input firstName đi sau khi in ra console
 // })
+
+/**
+ * Local storage
+ */
+// - Create
+// localStorage.setItem('location', 'HoChiMinh')
+// - Read
+// console.log(localStorage.getItem('location'))
+// - Update (giống với create)
+// - Delete
+// localStorage.removeItem('location')
+// - Delete all
+// localStorage.clear()
