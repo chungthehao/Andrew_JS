@@ -1,41 +1,7 @@
-let notes = [/*{
-    title: 'my next trip',
-    body: 'I would like to go to Spain'
-}, {
-    title: 'Habbits to work on',
-    body: 'Exercise. Eating a bit better'
-}, {
-    title: 'Office modification',
-    body: 'Get a new seat'
-}*/]
+const notes = getSavedNotes()
 
 const filters = {
     searchText: ''
-}
-
-/**
- * Check for existing saved data in local storage
- */
-const notesJSON = localStorage.getItem('notes') // sẽ trả về null nếu ở local storage chưa có
-if (notesJSON !== null) {
-    notes = JSON.parse(notesJSON)
-}
-
-const renderNotes = function (notes, filters) {
-    const filteredNotes = notes.filter(function (note) {
-        return note.title.toLowerCase().includes(filters.searchText.toLowerCase()) // || note.body.toLowerCase().includes(filters.searchText)
-    })
-
-    document.querySelector('#notes').innerHTML = '' // Xóa cái cũ trước khi re-render cái list notes mới
-    
-    filteredNotes.forEach(function (note) {
-        // Tạo element
-        const p = document.createElement('p')
-        // Insert nội dung
-        p.textContent = note.title.length ? note.title : 'Unnamed note'
-        // Rendering
-        document.querySelector('#notes').appendChild(p)
-    })
 }
 
 renderNotes(notes, filters) // chạy lần đầu, initialize
@@ -47,7 +13,7 @@ document.querySelector('#create-note').addEventListener('click', function (e) {
         body: ''
     })
     // save data into local storage
-    localStorage.setItem('notes', JSON.stringify(notes))
+    saveNotes(notes)
     // re-render the notes
     renderNotes(notes, filters)
 })
