@@ -8,11 +8,19 @@ const getSavedNotes = function () {
 // Generate the DOM structure for a note
 const generateNoteDOM = function (note) {
     // Tạo element
-    const p = document.createElement('p')
-    // Insert nội dung
-    p.textContent = note.title.length ? note.title : 'Unnamed note'
+    const noteEl = document.createElement('div')
+    const textEl = document.createElement('span')
+    const button = document.createElement('button')
 
-    return p
+    // Setup the remove note button
+    button.innerHTML = "&#9932;"
+    noteEl.appendChild(button)
+
+    // Setup the note title text
+    textEl.textContent = note.title.length ? note.title : 'Unnamed note'
+    noteEl.appendChild(textEl)
+
+    return noteEl
 }
 
 // Render application notes
