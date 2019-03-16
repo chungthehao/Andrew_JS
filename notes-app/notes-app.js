@@ -1,4 +1,4 @@
-const notes = [{
+let notes = [/*{
     title: 'my next trip',
     body: 'I would like to go to Spain'
 }, {
@@ -7,24 +7,19 @@ const notes = [{
 }, {
     title: 'Office modification',
     body: 'Get a new seat'
-}]
+}*/]
 
 const filters = {
     searchText: ''
 }
 
-// const user = {
-//     name: 'Henry',
-//     age: 27
-// }
-// const userJSON = JSON.stringify(user)
-// console.log(userJSON)
-// localStorage.setItem('user', userJSON)
-const userJSON = localStorage.getItem('user')
-const user = JSON.parse(userJSON)
-console.log(user)
-console.log(user.name)
-console.log(user.age)
+/**
+ * Check for existing saved data in local storage
+ */
+const notesJSON = localStorage.getItem('notes') // sẽ trả về null nếu ở local storage chưa có
+if (notesJSON !== null) {
+    notes = JSON.parse(notesJSON)
+}
 
 const renderNotes = function (notes, filters) {
     const filteredNotes = notes.filter(function (note) {
@@ -37,7 +32,7 @@ const renderNotes = function (notes, filters) {
         // Tạo element
         const p = document.createElement('p')
         // Insert nội dung
-        p.textContent = note.title
+        p.textContent = note.title.length ? note.title : 'Unnamed note'
         // Rendering
         document.querySelector('#notes').appendChild(p)
     })
@@ -46,7 +41,15 @@ const renderNotes = function (notes, filters) {
 renderNotes(notes, filters) // chạy lần đầu, initialize
 
 document.querySelector('#create-note').addEventListener('click', function (e) {
-    e.target.textContent = 'The button was clicked.'
+    // update a new note to notes array
+    notes.push({
+        title: '',
+        body: ''
+    })
+    // save data into local storage
+    localStorage.setItem('notes', JSON.stringify(notes))
+    // re-render the notes
+    renderNotes(notes, filters)
 })
 
 // document.querySelector('#search-text').addEventListener('change', function (e) {
@@ -133,3 +136,18 @@ document.querySelector('#filter-by').addEventListener('change', function (e) {
 // localStorage.removeItem('location')
 // - Delete all
 // localStorage.clear()
+
+
+// const user = {
+//     name: 'Henry',
+//     age: 27
+// }
+// const userJSON = JSON.stringify(user)
+// console.log(userJSON)
+// localStorage.setItem('user', userJSON)
+
+// const userJSON = localStorage.getItem('user')
+// const user = JSON.parse(userJSON)
+// console.log(user)
+// console.log(user.name)
+// console.log(user.age)

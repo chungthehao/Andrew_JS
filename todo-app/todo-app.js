@@ -1,4 +1,4 @@
-const todos = [{
+let todos = [/*{
     text: 'Order cat food',
     completed: true
 }, {
@@ -13,7 +13,15 @@ const todos = [{
 }, {
     text: 'Exercise',
     completed: false
-}]
+}*/]
+
+/**
+ * Check for existing data in local storage
+ */
+const todosJSON = localStorage.getItem('todos')
+if (todosJSON !== null) {
+    todos = JSON.parse(todosJSON)
+}
 
 const filters = {
     searchText: '',
@@ -83,6 +91,8 @@ document.querySelector('#add-todo-form').addEventListener('submit', function (e)
         text: newTodo,
         completed: false
     })
+    // update (or create) 'todos' local storage
+    localStorage.setItem('todos', JSON.stringify(todos))
 
     renderTodos(todos, filters) // Re-render todo list
 })
