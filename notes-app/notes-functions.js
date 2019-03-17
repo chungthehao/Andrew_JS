@@ -5,6 +5,18 @@ const getSavedNotes = function () {
     return notesJSON ? JSON.parse(notesJSON) : []
 }
 
+// Delete a note from the list
+const removeNote = function (noteId) {
+    // Tìm index của note cần delete
+    const noteIndex = notes.findIndex(function (note, index) {
+        return note.id === noteId
+    })
+    // Delete the note if found the index
+    if (noteIndex !== -1) {
+        notes.splice(noteIndex, 1)
+    }
+}
+
 // Generate the DOM structure for a note
 const generateNoteDOM = function (note) {
     // Tạo element
@@ -15,6 +27,11 @@ const generateNoteDOM = function (note) {
     // Setup the remove note button
     button.innerHTML = "&#9932;"
     noteEl.appendChild(button)
+    button.addEventListener('click', function () {
+        removeNote(note.id)
+        saveNotes(notes)
+        renderNotes(notes, filters)
+    })
 
     // Setup the note title text
     textEl.textContent = note.title.length ? note.title : 'Unnamed note'
