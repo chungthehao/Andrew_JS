@@ -23,6 +23,7 @@ document.querySelector('#add-todo-form').addEventListener('submit', function (e)
 
     // Update todos array
     todos.push({
+        id: uuidv4(),
         text: newTodo,
         completed: false
     })
