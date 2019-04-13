@@ -7,10 +7,10 @@ const noteId = location.hash.substr(1)
 
 // Lấy mảng các note ra
 // Notice: local storage is shared across all pages on that domain (Ex: http://127.0.0.1:60297)
-const notes = getSavedNotes()
+let notes = getSavedNotes()
 
 // Lấy note ra (bằng noteId)
-const note = notes.find(function (note, index) {
+let note = notes.find(function (note, index) {
     return note.id === noteId
 })
 
@@ -51,4 +51,28 @@ rmBtnEle.addEventListener('click', function (e) {
     saveNotes(notes)
     // Redirect về trang chính
     location.assign('/')
+})
+
+/**
+ * Global event listener
+ * Notice: Sự kiện 'storage' chỉ fire trên những trang khác trang hiện tại (những tab khác).
+ */
+window.addEventListener('storage', function (e) {
+    if (e.key === 'notes') {
+        // Lấy mảng notes mới
+        notes = JSON.parse(e.newValue)
+
+        // Cập nhật lại note
+        note = notes.find(function (note, index) {
+            return note.id === noteId
+        })
+
+        // Tab này xóa note thì tab kia cũng đc redirect về trang chính (y như tab này)
+        if (note === undefined) {
+            location.assign('/')
+        }
+
+        titleEle.value = note.title
+        bodyEle.value = note.body
+    }
 })
