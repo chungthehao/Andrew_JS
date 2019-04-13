@@ -58,7 +58,40 @@ window.addEventListener('storage', function (e) {
 
 
 
+/**
+ * Date
+ * - Unix Epoch - January 1st 1970 00:00:00
+ */
+// const now = new Date() // Thời điểm lúc script này chạy
+// const timestamp = now.getTime()
 
+// const myDate = new Date(timestamp)
+// console.log(myDate.getFullYear())
+
+// const thatDate = new Date('August 17 1992 08:25:29') // Thời điểm đc mô tả bằng string
+
+// console.log(now.getTime()) // trả về timestamp
+ 
+// console.log(now.toString())
+
+// console.log(`Year: ${now.getFullYear()}`)
+// console.log(`Month: ${now.getMonth()}`)
+// console.log(`Day of month: ${now.getDate()}`)
+// console.log(`Hour: ${now.getHours()}`)
+// console.log(`Minute: ${now.getMinutes()}`)
+// console.log(`Second: ${now.getSeconds()}`)
+
+const date1 = new Date('January 25 1999')
+const date2 = new Date('December 25 1992')
+
+const ts1 = date1.getTime()
+const ts2 = date2.getTime()
+
+if (ts1 <= ts2) {
+    console.log((new Date(ts1)).toString())
+} else {
+    console.log((new Date(ts2)).toString())
+}
 
 /**
  * DOM - Document Object Model
