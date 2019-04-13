@@ -8,15 +8,16 @@ renderNotes(notes, filters) // chạy lần đầu, initialize
 
 document.querySelector('#create-note').addEventListener('click', function (e) {
     // update a new note to notes array
+    const noteId = uuidv4()
     notes.push({
-        id: uuidv4(),
+        id: noteId,
         title: '',
         body: ''
     })
     // save data into local storage
     saveNotes(notes)
-    // re-render the notes
-    renderNotes(notes, filters)
+    // Redirect to edit page
+    location.assign(`/edit.html#${noteId}`)
 })
 
 // document.querySelector('#search-text').addEventListener('change', function (e) {

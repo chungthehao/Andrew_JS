@@ -21,7 +21,7 @@ const removeNote = function (noteId) {
 const generateNoteDOM = function (note) {
     // Tạo element
     const noteEl = document.createElement('div')
-    const textEl = document.createElement('span')
+    const textEl = document.createElement('a')
     const button = document.createElement('button')
 
     // Setup the remove note button
@@ -35,6 +35,8 @@ const generateNoteDOM = function (note) {
 
     // Setup the note title text
     textEl.textContent = note.title.length ? note.title : 'Unnamed note'
+    textEl.setAttribute('href', `/edit.html#${note.id}`) // Cách 2
+    // textEl.href = '/edit.html' // Cách 1
     noteEl.appendChild(textEl)
 
     return noteEl
