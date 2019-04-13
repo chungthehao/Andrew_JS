@@ -1,3 +1,7 @@
+/**
+ * File này chỉ chứa các function (ko có chạy bất cứ lệnh gì cả)
+ */
+
 // Read existing notes from local storage
 const getSavedNotes = function () {
     const notesJSON = localStorage.getItem('notes') // sẽ trả về null nếu ở local storage chưa có
