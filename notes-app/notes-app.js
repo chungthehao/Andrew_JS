@@ -57,6 +57,23 @@ window.addEventListener('storage', function (e) {
 
 
 
+/**
+ * MomentJS library
+ */
+// const now = moment()
+// now.subtract(1, 'week').subtract(20, 'days')
+// Muốn format kiểu: November 3rd, 2003
+// console.log(now.format('MMMM Do, YYYY'))
+// console.log(now.fromNow())
+// const nowTimestamp = now.valueOf()
+// console.log(moment(nowTimestamp).toString())
+// console.log(now.toString())
+// now.minute(1) // set phút là phút thứ 1
+// now.minute() // get giá trị phút ra
+// console.log(now.minute())
+const m = moment()
+m.date(17).month(7).year(1992)
+console.log(m.format('MMM D, YYYY'))
 
 /**
  * Date
@@ -81,17 +98,17 @@ window.addEventListener('storage', function (e) {
 // console.log(`Minute: ${now.getMinutes()}`)
 // console.log(`Second: ${now.getSeconds()}`)
 
-const date1 = new Date('January 25 1999')
-const date2 = new Date('December 25 1992')
+// const date1 = new Date('January 25 1999')
+// const date2 = new Date('December 25 1992')
 
-const ts1 = date1.getTime()
-const ts2 = date2.getTime()
+// const ts1 = date1.getTime()
+// const ts2 = date2.getTime()
 
-if (ts1 <= ts2) {
-    console.log((new Date(ts1)).toString())
-} else {
-    console.log((new Date(ts2)).toString())
-}
+// if (ts1 <= ts2) {
+//     console.log((new Date(ts1)).toString())
+// } else {
+//     console.log((new Date(ts2)).toString())
+// }
 
 /**
  * DOM - Document Object Model
