@@ -65,3 +65,8 @@ const renderNotes = function (notes, filters) {
 const saveNotes = function (notes) {
     localStorage.setItem('notes', JSON.stringify(notes))
 }
+
+// Generate the last edited message
+const getLastEditedMessage = function (timestamp) {
+    return `Last edited ${moment(timestamp).fromNow()}`
+}

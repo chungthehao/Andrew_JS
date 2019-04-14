@@ -1,6 +1,7 @@
 const titleEle = document.querySelector('#note-title')
 const bodyEle = document.querySelector('#note-body')
 const rmBtnEle = document.querySelector('#remove-note')
+const editedEle = document.querySelector('#last-edited')
 
 // Lấy thông tin id của note truyền bằng # trên URL
 const noteId = location.hash.substr(1)
@@ -21,15 +22,18 @@ if (note === undefined) {
 
 //----------- XUỐNG TỚI ĐÂY CHẮC CHẮN TỒN TẠI NOTE -----------
 
-// Đổ dữ liệu vô input, textarea
+// Initial value on the page load
 titleEle.value = note.title
 bodyEle.value = note.body
+editedEle.textContent = getLastEditedMessage(note.updatedAt)
 
 // Khi có bất cứ thay đổi gì của title, ngay lập tức cập nhật giá trị và lưu lại
 titleEle.addEventListener('input', function (e) {
     const newTitle = e.target.value
 
     note.title = newTitle
+    note.updatedAt = moment().valueOf()
+    editedEle.textContent = getLastEditedMessage(note.updatedAt)
 
     saveNotes(notes)
 })
@@ -39,6 +43,8 @@ bodyEle.addEventListener('input', function (e) {
     const newBodyText = e.target.value
 
     note.body = newBodyText
+    note.updatedAt = moment().valueOf()
+    editedEle.textContent = getLastEditedMessage(note.updatedAt)
 
     saveNotes(notes)
 })
@@ -74,5 +80,6 @@ window.addEventListener('storage', function (e) {
 
         titleEle.value = note.title
         bodyEle.value = note.body
+        editedEle.textContent = getLastEditedMessage(note.updatedAt)
     }
 })

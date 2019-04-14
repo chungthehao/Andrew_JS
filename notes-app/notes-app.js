@@ -9,10 +9,13 @@ renderNotes(notes, filters) // chạy lần đầu, initialize
 document.querySelector('#create-note').addEventListener('click', function (e) {
     // update a new note to notes array
     const noteId = uuidv4()
+    const nowTimestamp = moment().valueOf()
     notes.push({
         id: noteId,
         title: '',
-        body: ''
+        body: '',
+        createdAt: nowTimestamp,
+        updatedAt: nowTimestamp
     })
     // save data into local storage
     saveNotes(notes)
@@ -57,6 +60,8 @@ window.addEventListener('storage', function (e) {
 
 
 
+
+
 /**
  * MomentJS library
  */
@@ -71,9 +76,9 @@ window.addEventListener('storage', function (e) {
 // now.minute(1) // set phút là phút thứ 1
 // now.minute() // get giá trị phút ra
 // console.log(now.minute())
-const m = moment()
-m.date(17).month(7).year(1992)
-console.log(m.format('MMM D, YYYY'))
+// const m = moment()
+// m.date(17).month(7).year(1992)
+// console.log(m.format('MMM D, YYYY'))
 
 /**
  * Date
