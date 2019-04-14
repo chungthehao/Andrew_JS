@@ -46,8 +46,49 @@ const generateNoteDOM = function (note) {
     return noteEl
 }
 
+// Sort your notes by one of three ways (trả về mảng notes đã được sort)
+const sortNotes = function (notes, sortBy) {
+    switch (sortBy) {
+        case 'byEdited':
+            return notes.sort(function (truoc, sau) {
+                if (truoc.updatedAt > sau.updatedAt) {
+                    return -1 // 'truoc' sẽ trước 
+                } else if (truoc.updatedAt < sau.updatedAt) {
+                    return 1 // 'sau' sẽ trước
+                } else {
+                    return 0
+                }
+            })
+        case 'byCreated':
+            return notes.sort(function (a, b) {
+                if (a.createdAt > b.createdAt) {
+                    return -1
+                } else if (a.createdAt < b.createdAt) {
+                    return 1
+                } else {
+                    return 0
+                }
+            })
+        case 'alphabetical':
+            return notes.sort(function (a, b) {
+                if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                    return -1
+                } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                    return 1
+                } else {
+                    return 0
+                }
+            })
+        default: 
+            return notes
+    }
+}
+
 // Render application notes
 const renderNotes = function (notes, filters) {
+    // Sort trước, lọc theo search sau
+    notes = sortNotes(notes, filters.sortBy)
+
     const filteredNotes = notes.filter(function (note) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase()) // || note.body.toLowerCase().includes(filters.searchText)
     })
