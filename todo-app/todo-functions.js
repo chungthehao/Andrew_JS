@@ -1,22 +1,22 @@
 // Fetch existing todos from local storage
-const getSavedTodos = function () {
+const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos') // trả về null nếu chưa tồn tại
     return todosJSON ? JSON.parse(todosJSON) : []
 }
 
 // Save todos to local storage
-const saveTodos = function (todos) {
+const saveTodos = todos => {
     // update (or create) 'todos' local storage
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
 // Render application todos based on filters
-const renderTodos = function (todos, filters) {
+const renderTodos = (todos, filters) => {
     // Reset div#todos
     document.querySelector('#todos').innerHTML = ''
 
     // Lọc những todos match với searchText
-    const filteredTodos = todos.filter(function (todo) {
+    const filteredTodos = todos.filter(todo => {
         if ( ! filters.hideCompleted) {
             return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
         }
@@ -28,17 +28,15 @@ const renderTodos = function (todos, filters) {
     document.querySelector('#todos').appendChild(generateSummaryDOM(incompleteTodos))
 
     // Xuất các todos ra 
-    filteredTodos.forEach(function (todo) {
+    filteredTodos.forEach(todo => {
         document.querySelector('#todos').appendChild(generateTodoDOM(todo))
     })
 }
 
 // Delete a todo from the list by id
-const removeTodo = function (todoId) {
+const removeTodo = todoId => {
     // Find the index
-    const todoIndex = todos.findIndex(function (todo) {
-        return todoId === todo.id
-    })
+    const todoIndex = todos.findIndex(todo => todoId === todo.id)
     // Delete the todo if found
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
@@ -46,11 +44,9 @@ const removeTodo = function (todoId) {
 }
 
 // Toggle the completed value for a given todo
-const toggleTodo = function (todoId) {
+const toggleTodo = todoId => {
     // Find the todo by id
-    const todo = todos.find(function (todo) {
-        return todoId === todo.id
-    })
+    const todo = todos.find(todo => todoId === todo.id)
     // toggle completed prop if found
     if (todo !== undefined) {
         todo.completed = ! todo.completed
@@ -58,7 +54,7 @@ const toggleTodo = function (todoId) {
 }
 
 // Get the DOM elements for an individual note
-const generateTodoDOM = function (todo) {
+const generateTodoDOM = todo => {
     const todoEle = document.createElement('div')
     const checkboxEle = document.createElement('input')
     const textEle = document.createElement('span')
@@ -71,7 +67,7 @@ const generateTodoDOM = function (todo) {
     }*/
     checkboxEle.checked = todo.completed
     todoEle.appendChild(checkboxEle)
-    checkboxEle.addEventListener('change', function () {
+    checkboxEle.addEventListener('change', () => {
         toggleTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
@@ -84,7 +80,7 @@ const generateTodoDOM = function (todo) {
     // Setup the remove button
     button.innerHTML = '&#9932;'
     todoEle.appendChild(button)
-    button.addEventListener('click', function () {
+    button.addEventListener('click', () => {
         removeTodo(todo.id)
         renderTodos(todos, filters)
         saveTodos(todos)
@@ -94,7 +90,7 @@ const generateTodoDOM = function (todo) {
 }
 
 // Get the DOM elements for list summary
-const generateSummaryDOM = function (incompleteTodos) {
+const generateSummaryDOM = incompleteTodos => {
     const summaryEle = document.createElement('h2')
     summaryEle.textContent = `You have ${incompleteTodos.length} todos left`
 
@@ -102,8 +98,4 @@ const generateSummaryDOM = function (incompleteTodos) {
 }
 
 // Lọc những todo chưa hoàn thành (trả về 1 array các todo obj)
-const getIncompleteTodos = function (todos) {
-    return todos.filter(function (todo) {
-        return ! todo.completed
-    })
-}
+const getIncompleteTodos = todos => todos.filter(todo => !todo.completed)

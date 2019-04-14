@@ -11,9 +11,7 @@ const noteId = location.hash.substr(1)
 let notes = getSavedNotes()
 
 // Lấy note ra (bằng noteId)
-let note = notes.find(function (note, index) {
-    return note.id === noteId
-})
+let note = notes.find(note => note.id === noteId)
 
 // Nếu ko tồn tại note có id đc truyền trên URL, redirect về trang chính
 if (note === undefined) {
@@ -28,7 +26,7 @@ bodyEle.value = note.body
 editedEle.textContent = getLastEditedMessage(note.updatedAt)
 
 // Khi có bất cứ thay đổi gì của title, ngay lập tức cập nhật giá trị và lưu lại
-titleEle.addEventListener('input', function (e) {
+titleEle.addEventListener('input', e => {
     const newTitle = e.target.value
 
     note.title = newTitle
@@ -39,7 +37,7 @@ titleEle.addEventListener('input', function (e) {
 })
 
 // Khi có bất cứ thay đổi gì của body, ngay lập tức cập nhật giá trị và lưu lại
-bodyEle.addEventListener('input', function (e) {
+bodyEle.addEventListener('input', e => {
     const newBodyText = e.target.value
 
     note.body = newBodyText
@@ -50,7 +48,7 @@ bodyEle.addEventListener('input', function (e) {
 })
 
 // Khi nhấn nút xóa
-rmBtnEle.addEventListener('click', function (e) {
+rmBtnEle.addEventListener('click', e => {
     // Xóa note có id là 'noteId' trong mảng 'notes'
     removeNote(noteId)
     // Lưu notes vào local storage
@@ -63,15 +61,13 @@ rmBtnEle.addEventListener('click', function (e) {
  * Global event listener
  * Notice: Sự kiện 'storage' chỉ fire trên những trang khác trang hiện tại (những tab khác).
  */
-window.addEventListener('storage', function (e) {
+window.addEventListener('storage', e => {
     if (e.key === 'notes') {
         // Lấy mảng notes mới
         notes = JSON.parse(e.newValue)
 
         // Cập nhật lại note
-        note = notes.find(function (note, index) {
-            return note.id === noteId
-        })
+        note = notes.find(note => note.id === noteId)
 
         // Tab này xóa note thì tab kia cũng đc redirect về trang chính (y như tab này)
         if (note === undefined) {
