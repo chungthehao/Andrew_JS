@@ -1,7 +1,12 @@
 // Fetch existing todos from local storage
 const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos') // trả về null nếu chưa tồn tại
-    return todosJSON ? JSON.parse(todosJSON) : []
+    
+    try {
+        return todosJSON ? JSON.parse(todosJSON) : []
+    } catch (error) {
+        return []
+    }
 }
 
 // Save todos to local storage

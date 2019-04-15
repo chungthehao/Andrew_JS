@@ -6,7 +6,11 @@
 const getSavedNotes = () => {
     const notesJSON = localStorage.getItem('notes') // sẽ trả về null nếu ở local storage chưa có
     
-    return notesJSON ? JSON.parse(notesJSON) : []
+    try {
+        return notesJSON ? JSON.parse(notesJSON) : []
+    } catch (error) {
+        return []
+    }
 }
 
 // Delete a note from the list
