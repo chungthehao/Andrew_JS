@@ -3,6 +3,11 @@
 // A 90-100, B 80-89, C 70-79, D 60-69, F 0-59
 
 const calcGrade = function (score, total) {
+    if (typeof score !== 'number' ||
+        typeof total !== 'number') {
+        throw Error('Please provide numbers only!')
+    }
+
     let grade = 'F'
     const percent = score / total * 100
 
@@ -19,9 +24,17 @@ const calcGrade = function (score, total) {
     return `You got a ${grade} (${percent}%)!`
 }
 
-console.log(calcGrade(15, 20))
-console.log(calcGrade(10, 20))
-console.log(calcGrade(12, 20))
-console.log(calcGrade(14, 20))
-console.log(calcGrade(81, 100))
-console.log(calcGrade(90, 100))
+try {
+    // console.log(calcGrade(15, 20))
+    // console.log(calcGrade('String', 20))
+    // console.log(calcGrade(17, true))
+    console.log(calcGrade([], true))
+} catch (error) {
+    console.log(error.message)
+}
+
+// console.log(calcGrade(10, 20))
+// console.log(calcGrade(12, 20))
+// console.log(calcGrade(14, 20))
+// console.log(calcGrade(81, 100))
+// console.log(calcGrade(90, 100))
