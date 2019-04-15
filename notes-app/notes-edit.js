@@ -11,10 +11,10 @@ const noteId = location.hash.substr(1)
 let notes = getSavedNotes()
 
 // Lấy note ra (bằng noteId)
-let note = notes.find(note => note.id === noteId)
+let note = notes.find(note => note.id === noteId) // Ko tìm thấy sẽ trả về undefined
 
 // Nếu ko tồn tại note có id đc truyền trên URL, redirect về trang chính
-if (note === undefined) {
+if ( ! note) {
     location.assign('/')
 }
 
@@ -67,10 +67,10 @@ window.addEventListener('storage', e => {
         notes = JSON.parse(e.newValue)
 
         // Cập nhật lại note
-        note = notes.find(note => note.id === noteId)
+        note = notes.find(note => note.id === noteId) // Ko tìm thấy sẽ trả về undefined
 
         // Tab này xóa note thì tab kia cũng đc redirect về trang chính (y như tab này)
-        if (note === undefined) {
+        if ( ! note) {
             location.assign('/')
         }
 

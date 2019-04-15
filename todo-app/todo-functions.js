@@ -46,9 +46,9 @@ const removeTodo = todoId => {
 // Toggle the completed value for a given todo
 const toggleTodo = todoId => {
     // Find the todo by id
-    const todo = todos.find(todo => todoId === todo.id)
+    const todo = todos.find(todo => todoId === todo.id) // Trả về undefined nếu ko tìm thấy
     // toggle completed prop if found
-    if (todo !== undefined) {
+    if (todo) {
         todo.completed = ! todo.completed
     }
 }
