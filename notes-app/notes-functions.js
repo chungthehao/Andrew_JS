@@ -2,6 +2,19 @@
  * File này chỉ chứa các function (ko có chạy bất cứ lệnh gì cả)
  */
 
+'use strict'
+
+/** Test use strict mode */
+// const public = 'gi do' // Unexpected strict mode reserved word
+// let data // fix leak global variables mà strict mode báo lỗi
+// const processData = () => {
+//     // Tìm trong này ko thấy, tìm ngoài global cũng ko thấy biến data
+//     data = '3367289' // It's going to create a 'data' variable in global scope
+// }
+// processData()
+// console.log(data)
+/** End: Test use strict mode */
+
 // Read existing notes from local storage
 const getSavedNotes = () => {
     const notesJSON = localStorage.getItem('notes') // sẽ trả về null nếu ở local storage chưa có
