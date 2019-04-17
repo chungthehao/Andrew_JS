@@ -1,25 +1,60 @@
 /**
+ * Prototypal Inheritance
+ */
+const Person = function (firstName, lastName, age, likes = []) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.likes = likes
+}
+// method này được dùng chung cho tất cả các instance của Person
+Person.prototype.getBio = function () {
+    let bio = `${this.firstName} is ${this.age}.`
+
+    this.likes.forEach(like => {
+        bio += ` ${this.firstName} likes ${like}.`
+    })
+
+    return bio
+}
+Person.prototype.setName = function (fullName) {
+    const names = fullName.split(' ')
+    this.firstName = names[0]
+    this.lastName = names[1]
+}
+// Property này được dùng chung cho tất cả các instance của Person
+// Person.prototype.location = 'HoChiMinh'
+
+const me = new Person('Henry', 'Chung', 27, ['Swimming', 'Walking', 'Eating'])
+me.setName('Hao Chung')
+console.log(me.getBio())
+
+const person2 = new Person('Clancey', 'Turner', 51, [])
+console.log(person2.getBio())
+
+
+/**
  * Tùy biến property của obj (xào nấu obj "rỗng" đó)
  * (Giá trị truyền vào, dynamic)
  * person -> Person (convention về constructor function thôi)
  */
-const Person = function (firstName, lastName, age) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
+// const Person = function (firstName, lastName, age) {
+//     this.firstName = firstName
+//     this.lastName = lastName
+//     this.age = age
 
-    // return this // ko cần, 'new' đã làm ngầm
-    // return {} // Trả về 1 obj rỗng, vô nghĩa
-}
+//     // return this // ko cần, 'new' đã làm ngầm
+//     // return {} // Trả về 1 obj rỗng, vô nghĩa
+// }
 
-const me = new Person('Henry', 'Chung', 27)
+// const me = new Person('Henry', 'Chung', 27)
 
 // me.firstName = 'Ma Lau'
-console.log(me)
+// console.log(me)
 // console.log(me.age)
 
-const person2 = new Person('Clancey', 'Turner', 51)
-console.log(person2)
+// const person2 = new Person('Clancey', 'Turner', 51)
+// console.log(person2)
 
 /**
  * Tùy biến property của obj (xào nấu obj "rỗng" đó)
