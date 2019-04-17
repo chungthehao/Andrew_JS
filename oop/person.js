@@ -27,9 +27,25 @@ Person.prototype.setName = function (fullName) {
 
 const me = new Person('Henry', 'Chung', 27, ['Swimming', 'Walking', 'Eating'])
 me.setName('Hao Chung')
+
+/**
+ * Tìm thấy property / method nào ở cấp thấp thì xài cái đó, ko chain tiếp lên cấp cao để tìm!
+ */
+me.getBio = function () {
+    return 'getBio() của me instance!'
+}
+
 console.log(me.getBio())
 
 const person2 = new Person('Clancey', 'Turner', 51, [])
+
+/**
+ * Object 'Person.prototype' này thay đổi gì thì sẽ phản ánh cho tất cả các instance khi tụi nó "chain tới".
+ */
+// Person.prototype.getBio = function () {
+//     return 'Just test!'
+// }
+
 console.log(person2.getBio())
 
 
