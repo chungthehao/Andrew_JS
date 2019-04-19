@@ -1,4 +1,5 @@
 const Hangman = function (word, remainingGuesses) {
+    this.status = 'playing'
     this.word = word.toLowerCase().split('')
     this.guessedLetters = []
     this.remainingGuesses = remainingGuesses
@@ -19,8 +20,8 @@ Hangman.prototype.getPuzzle = function () {
 }
 
 Hangman.prototype.makeGuess = function (character) {
-    // Nếu hết lượt hoặc đoán nhiều chữ cái thì dừng
-    if (this.remainingGuesses === 0 || character.length > 1) return;
+    // Failed hay Finished rồi thì dừng
+    if (this.status !== 'playing') return;
 
     const char = character.toLowerCase()
 
@@ -34,21 +35,82 @@ Hangman.prototype.makeGuess = function (character) {
     if ( ! this.word.includes(char)) 
         this.remainingGuesses--
 
-    return;
+    this.recalculatingStatus()
 }
 
-const game1 = new Hangman('cat', 2)
-console.log(game1.getPuzzle())
-console.log(game1.remainingGuesses)
+Hangman.prototype.recalculatingStatus = function () {
+    if (this.remainingGuesses === 0) {
+        this.status = 'failed'
+        return;
+    }
 
-window.addEventListener('keypress', function (e) {
-    const character = String.fromCharCode(e.charCode)
-    
-    game1.makeGuess(character)
+    /**
+     * * Cách 3: Dùng every
+     * - Nếu tất cả match trả về true
+     * - Có bất kỳ cái nào ko match trả về false
+     */
+    const isFinished = this.word.every(letter => this.guessedLetters.includes(letter))
+    if (isFinished) {
+        this.status = 'finished'
+        return;
+    }
+        
+    /**
+     * * Cách 2
+     * Lọc ra những chữ cái trong chữ mà chưa đc đoán, nếu ko có tức là đã xong
+     */
+    // const lettersUnguessed = this.word.filter(letter => {
+    //     return ! this.guessedLetters.includes(letter)
+    // })
+    // if (lettersUnguessed.length === 0) {
+    //     this.status = 'finished'
+    //     return;
+    // }
 
-    console.log(game1.getPuzzle())
-    console.log(game1.remainingGuesses)
-})
+    /**
+     * * Cách 1
+     * Nếu tất cả các từ trong this.word đều nằm trong this.guessedLetters thì thành công r
+     */
+    // let isFinished = true
+    // this.word.forEach(char => {
+    //     if ( ! this.guessedLetters.includes(char)) {
+    //         isFinished = false
+    //     }
+    // })
+
+    // if (isFinished) {
+    //     this.status = 'finished'
+    //     return;
+    // }
+
+    // Chưa failed mà cũng chưa finished thì là đang chơi
+    this.status = 'playing'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // const game2 = new Hangman('Three Cats', 5)

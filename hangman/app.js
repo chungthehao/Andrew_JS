@@ -1,3 +1,34 @@
+const puzzleEle = document.querySelector('#puzzle')
+const remainingGuessesEle = document.querySelector('#remaining-guesses')
+
+const game1 = new Hangman('cat', 2)
+
+puzzleEle.textContent = game1.getPuzzle()
+remainingGuessesEle.textContent = game1.remainingGuesses
+console.log(game1.status)
+
+window.addEventListener('keypress', function (e) {
+    const character = String.fromCharCode(e.charCode)
+    
+    game1.makeGuess(character)
+
+    puzzleEle.textContent = game1.getPuzzle()
+    remainingGuessesEle.textContent = game1.remainingGuesses
+    console.log(game1.status)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Primitive value: string, number, boolean, null, undefined
  */
@@ -11,23 +42,14 @@
  * - Number: myNumber --> Number.prototype --> Object.prototype --> null (It gets implicitly converted to an object behind the scenes by JavaScript)
  * - Boolean: myBoolean --> Boolean.prototype --> Object.prototype --> null (It gets implicitly converted to an object behind the scenes by JavaScript)
  */
-const product = 'computer'
-console.log(product) // string là primitive nên khi in ra mình đâu có thấy được prototype chain của nó
-console.log(product.split('')) // Khi access method thì mới chuyển string đó qua object (lúc đầu nó là primitive)
+// const product = 'computer'
+// console.log(product) // string là primitive nên khi in ra mình đâu có thấy được prototype chain của nó
+// console.log(product.split('')) // Khi access method thì mới chuyển string đó qua object (lúc đầu nó là primitive)
 
-const otherProduct = new String('mouse')
-console.log(otherProduct)
+// const otherProduct = new String('mouse')
+// console.log(otherProduct)
 
-
-
-
-
-
-
-
-
-
-
+//======================================================
 
 // const getScore = () => 1
 // console.log(getScore)
