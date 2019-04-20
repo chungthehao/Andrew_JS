@@ -1,3 +1,9 @@
+/**
+ * * HTTP (Hypertext Transfer Protocol - Request Response Protocol)
+ * - Request    - What do we want to do
+ * - Response   - What was actually done 
+ */
+
 const puzzleEle = document.querySelector('#puzzle')
 const remainingGuessesEle = document.querySelector('#remaining-guesses')
 
@@ -26,6 +32,24 @@ window.addEventListener('keypress', function (e) {
 
 
 
+
+
+/**
+ * Making a HTTP request
+ */
+const request = new XMLHttpRequest()
+
+request.addEventListener('readystatechange', (e) => {
+    // - Inside of this function, we're actually going to have this fire five different times, 
+    // one time for each 'readyState' change (0, 1, 2, 3, 4 [done])
+    if (e.target.readyState === 4) { // We have the final response
+        const data = JSON.parse(e.target.responseText)
+        console.log(data)
+    }
+})
+
+request.open('GET', 'http://puzzle.mead.io/puzzle')
+request.send()
 
 
 
