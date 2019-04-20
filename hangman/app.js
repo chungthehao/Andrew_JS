@@ -13,7 +13,7 @@ puzzleEle.textContent = game1.puzzle
 remainingGuessesEle.textContent = game1.statusMessage
 console.log(game1.status)
 
-window.addEventListener('keypress', function (e) {
+window.addEventListener('keypress', (e) => {
     const character = String.fromCharCode(e.charCode)
     
     game1.makeGuess(character)
@@ -42,13 +42,15 @@ const request = new XMLHttpRequest()
 request.addEventListener('readystatechange', (e) => {
     // - Inside of this function, we're actually going to have this fire five different times, 
     // one time for each 'readyState' change (0, 1, 2, 3, 4 [done])
-    if (e.target.readyState === 4) { // We have the final response
+    if (e.target.readyState === 4 && e.target.status === 200) { // We have the final response
         const data = JSON.parse(e.target.responseText)
         console.log(data)
+    } else if (e.target.readyState === 4) {
+        console.log('An error has taken place!')
     }
 })
 
-request.open('GET', 'http://puzzle.mead.io/puzzle')
+request.open('GET', 'http://puzzle.mead.io/puzzle?wordCount=3')
 request.send()
 
 
