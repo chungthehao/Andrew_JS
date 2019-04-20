@@ -50,7 +50,7 @@ class Hangman {
          * - Nếu tất cả match trả về true
          * - Có bất kỳ cái nào ko match trả về false
          */
-        const isFinished = this.word.every(letter => this.guessedLetters.includes(letter))
+        const isFinished = this.word.every(letter => this.guessedLetters.includes(letter) || letter === ' ')
         if (isFinished) {
             this.status = 'finished'
             return;
