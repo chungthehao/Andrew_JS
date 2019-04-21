@@ -53,6 +53,27 @@ request.addEventListener('readystatechange', (e) => {
 request.open('GET', 'http://puzzle.mead.io/puzzle?wordCount=3')
 request.send()
 
+/**
+ * Making a HTTP request (Challenge)
+ */
+const countryCode = 'CA'
+const req = new XMLHttpRequest()
+
+let count = 0
+req.addEventListener('readystatechange', e => {
+    console.log('Event fire: ' + ++count)
+    if (e.target.readyState === 4 && e.target.status === 200) {
+        const countries = JSON.parse(e.target.responseText)
+        const country = countries.find(country => country.alpha2Code === countryCode)
+        console.log(country.name)
+    } else if (e.target.readyState === 4) {
+        console.log('Something went wrong!')
+    }
+})
+
+req.open('GET', 'http://restcountries.eu/rest/v2/all')
+req.send()
+
 
 
 /**
