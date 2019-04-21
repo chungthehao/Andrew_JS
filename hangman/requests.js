@@ -19,3 +19,19 @@ const getPuzzle = (callback) => {
     request.open('GET', 'http://puzzle.mead.io/puzzle?wordCount=3')
     request.send()
 }
+
+
+// const getPuzzleSync = () => {
+//     const request = new XMLHttpRequest()
+
+//     request.open('GET', 'http://puzzle.mead.io/slow-puzzle?wordCount=3', false) // async: false
+//     request.send()
+
+//     // Đoạn code dưới này chỉ chạy sau khi server nhận response về --> Ko cần dùng event listener
+//     if (request.readyState === 4 && request.status === 200) {
+//         const data = JSON.parse(request.responseText)
+//         return data.puzzle
+//     } else if (request.readyState === 4) {
+//         throw new Error('Thing did not go well...')
+//     }
+// }

@@ -31,6 +31,14 @@ getPuzzle((error, puzzle) => {
     }
 })
 
+console.log('DO SOMETHING ELSE!!!')
+
+// *** Chỉ với mục đích mô tả việc đợi cái này xong rồi mới làm tiếp cái khác (ko nên xài thực tế)
+// const puzzle = getPuzzleSync()
+// console.log(puzzle)
+
+// console.log('DO SOMETHING ELSE!!!')
+
 
 
 
