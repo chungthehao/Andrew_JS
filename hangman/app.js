@@ -23,13 +23,23 @@ window.addEventListener('keypress', (e) => {
     // console.log(game1.status)
 })
 
-getPuzzle('2', (error, puzzle) => {
-    if (error) {
-        console.log(`Error: ${error}`)
-    } else {
+// ** PROMISE
+getPuzzle('2').then(
+    (puzzle) => {
         console.log(puzzle)
+    },
+    (err) => {
+        console.log(`Error: ${err}`)
     }
-})
+)
+// ** CALLBACK
+// getPuzzle('2', (error, puzzle) => {
+//     if (error) {
+//         console.log(`Error: ${error}`)
+//     } else {
+//         console.log(puzzle)
+//     }
+// })
 
 
 // *** Chỉ với mục đích mô tả việc đợi cái này xong rồi mới làm tiếp cái khác (ko nên xài thực tế)
@@ -45,15 +55,25 @@ getPuzzle('2', (error, puzzle) => {
 
 
 
-
+// ** PROMISE
 const countryCode = 'CA'
-getCountry(countryCode, (error, country) => {
-    if (error) {
-        console.log(error)
-    } else {
+getCountry(countryCode).then(
+    (country) => {
         console.log(country.name)
+    },
+    (err) => {
+        console.log(err)
     }
-})
+)
+// ** CALLBACK
+// const countryCode = 'CA'
+// getCountry(countryCode, (error, country) => {
+//     if (error) {
+//         console.log(error)
+//     } else {
+//         console.log(country.name)
+//     }
+// })
 
 
 /**

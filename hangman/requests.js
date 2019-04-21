@@ -1,42 +1,81 @@
-const getPuzzle = (wordCount, callback) => {
-    /**
-     * Making a HTTP request
-     */
-    const request = new XMLHttpRequest()
+const getPuzzle = (wordCount) => {
+    return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest()
 
-    request.addEventListener('readystatechange', (e) => {
-        // - Inside of this function, we're actually going to have this fire five different times, 
-        // one time for each 'readyState' change (0, 1, 2, 3, 4 [done])
-        if (e.target.readyState === 4 && e.target.status === 200) { // We have the final response
-            const data = JSON.parse(e.target.responseText)
-            callback(undefined, data.puzzle)
-        } else if (e.target.readyState === 4) {
-            callback('An error has taken place!', undefined)
-            // console.log('An error has taken place!')
-        }
+        request.addEventListener('readystatechange', (e) => {
+            if (e.target.readyState === 4 && e.target.status === 200) { // We have the final response
+                const data = JSON.parse(e.target.responseText)
+                resolve(data.puzzle)
+            } else if (e.target.readyState === 4) {
+                reject('An error has taken place!')
+            }
+        })
+
+        request.open('GET', `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+        request.send()
     })
-
-    request.open('GET', `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
-    request.send()
 }
 
 
-const getCountry = (countryCode, callback) => {
-    const req = new XMLHttpRequest()
+const getCountry = (countryCode) => {
+    return new Promise((resolve, reject) => {
+        const req = new XMLHttpRequest()
 
-    req.addEventListener('readystatechange', e => {
-        if (e.target.readyState === 4 && e.target.status === 200) {
-            const countries = JSON.parse(e.target.responseText)
-            const country = countries.find(country => country.alpha2Code === countryCode)
-            callback(undefined, country)
-        } else if (e.target.readyState === 4) {
-            callback('Something went wrong!', undefined)
-        }
+        req.addEventListener('readystatechange', e => {
+            if (e.target.readyState === 4 && e.target.status === 200) {
+                const countries = JSON.parse(e.target.responseText)
+                const country = countries.find(country => country.alpha2Code === countryCode)
+                resolve(country)
+            } else if (e.target.readyState === 4) {
+                reject('Something went wrong!')
+            }
+        })
+
+        req.open('GET', 'http://restcountries.eu/rest/v2/all')
+        req.send()
     })
-
-    req.open('GET', 'http://restcountries.eu/rest/v2/all')
-    req.send()
 }
+
+
+// const getPuzzle = (wordCount, callback) => {
+//     /**
+//      * Making a HTTP request
+//      */
+//     const request = new XMLHttpRequest()
+
+//     request.addEventListener('readystatechange', (e) => {
+//         // - Inside of this function, we're actually going to have this fire five different times, 
+//         // one time for each 'readyState' change (0, 1, 2, 3, 4 [done])
+//         if (e.target.readyState === 4 && e.target.status === 200) { // We have the final response
+//             const data = JSON.parse(e.target.responseText)
+//             callback(undefined, data.puzzle)
+//         } else if (e.target.readyState === 4) {
+//             callback('An error has taken place!', undefined)
+//             // console.log('An error has taken place!')
+//         }
+//     })
+
+//     request.open('GET', `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+//     request.send()
+// }
+
+
+// const getCountry = (countryCode, callback) => {
+//     const req = new XMLHttpRequest()
+
+//     req.addEventListener('readystatechange', e => {
+//         if (e.target.readyState === 4 && e.target.status === 200) {
+//             const countries = JSON.parse(e.target.responseText)
+//             const country = countries.find(country => country.alpha2Code === countryCode)
+//             callback(undefined, country)
+//         } else if (e.target.readyState === 4) {
+//             callback('Something went wrong!', undefined)
+//         }
+//     })
+
+//     req.open('GET', 'http://restcountries.eu/rest/v2/all')
+//     req.send()
+// }
 
 
 // const getPuzzleSync = () => {
