@@ -1,4 +1,4 @@
-const getPuzzle = (callback) => {
+const getPuzzle = (wordCount, callback) => {
     /**
      * Making a HTTP request
      */
@@ -16,8 +16,26 @@ const getPuzzle = (callback) => {
         }
     })
 
-    request.open('GET', 'http://puzzle.mead.io/puzzle?wordCount=3')
+    request.open('GET', `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
     request.send()
+}
+
+
+const getCountry = (countryCode, callback) => {
+    const req = new XMLHttpRequest()
+
+    req.addEventListener('readystatechange', e => {
+        if (e.target.readyState === 4 && e.target.status === 200) {
+            const countries = JSON.parse(e.target.responseText)
+            const country = countries.find(country => country.alpha2Code === countryCode)
+            callback(undefined, country)
+        } else if (e.target.readyState === 4) {
+            callback('Something went wrong!', undefined)
+        }
+    })
+
+    req.open('GET', 'http://restcountries.eu/rest/v2/all')
+    req.send()
 }
 
 
