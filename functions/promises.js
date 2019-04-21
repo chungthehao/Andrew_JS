@@ -1,53 +1,150 @@
 /**
- * * CALLBACK
+ * * CALLBACK HELL
  */
-const getDataCallback = (callback) => {
-    console.log(1)
-
+const getDataCallback = (num, callback) => {
     setTimeout(() => {
-        // callback(undefined, 'This is the data')
-
-        callback('This is my CALLBACK error', undefined)
-        callback('This is my CALLBACK error', undefined)
+        if (typeof num === 'number') {
+            callback(undefined, num * 2)
+        } else {
+            callback('Number must be provided')
+        }
     }, 2000)
-
-    console.log(2)
 }
 
-getDataCallback((error, data) => {
+// ** Do 2 asynchronous things with CALLBACK (using the data from the 1st to start the process for the 2nd)
+getDataCallback(2, (error, data) => {
     if (error) {
         console.log(error)
     } else {
-        console.log(data)
+        getDataCallback(data, (err, data2) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(data2)
+            }
+        })
     }
 })
 
-console.log(3)
+
+/**
+ * * PROMISE CHAINING
+ * - param truyền vào Promise constructor function là 1 function, function này được chạy ngay lập tức, thực hiện các việc 'tốn thời gian' (This is where we put our long running process)
+ */
+const getDataPromise = (num) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            typeof num === 'number' ? resolve(num * 2) : reject('Phải truyền số vào.')
+        }, 2000)
+    })
+}
+// ** CÁCH NGU (vẫn còn nesting)
+getDataPromise(5).then(
+    (data) => {
+        getDataPromise(data).then(
+            (data2) => {
+                console.log(`Promise ngu data2: ${data2}`)
+            },
+            (err2) => {
+                console.log(err2)
+            }
+        )
+    },
+    (err) => {
+        console.log(err)
+    }
+)
+// ** CÁCH KHÔN (promise chaining - thay vì then tiếp ở lúc gọi getDataPromise lần 2 thì return cái promise đó)
+/**
+ * Khi getDataPromise lần 1 resolve nó sẽ gọi getDataPromise lần 2, mà getDataPromise trả về 1 promise, đồng thời lại được
+ * return trong then của getDataPromise lần 1 nên cục này:
+ * getDataPromise(10).then(
+        (data) => {
+            return getDataPromise(data)
+        },
+        (err) => {
+            console.log(err)
+        }
+    )
+    sẽ là 1 promise của lần 2 nên then tiếp được!
+ */
+getDataPromise(10).then(
+    (data) => {
+        return getDataPromise(data)
+    },
+    (err) => {
+        console.log(err)
+    }
+).then(
+    (data2) => {
+        console.log(`Promise khôn data2: ${data2}`)
+    },
+    (err2) => {
+        console.log(err2)
+    }
+)
+// 3 cấp luôn (bất cứ promise nào reject thì đều dừng lại hết và chạy error handler trong catch)
+getDataPromise(3).then((data) => {
+    return getDataPromise(data)
+}).then((data) => {
+    return getDataPromise(data)
+}).then((data) => {
+    console.log(data)
+}).catch((err) => {
+    console.log(err)
+})
+
+
+/**
+ * * CALLBACK
+ */
+// const getDataCallback = (callback) => {
+//     console.log(1)
+
+//     setTimeout(() => {
+//         // callback(undefined, 'This is the data')
+
+//         callback('This is my CALLBACK error', undefined)
+//         callback('This is my CALLBACK error', undefined)
+//     }, 2000)
+
+//     console.log(2)
+// }
+
+// getDataCallback((error, data) => {
+//     if (error) {
+//         console.log(error)
+//     } else {
+//         console.log(data)
+//     }
+// })
+
+// console.log(3)
 
 
 /**
  * * PROMISE (Mà muốn truyền params [closures])
  * - param truyền vào Promise constructor function là 1 function, function này được chạy ngay lập tức, thực hiện các việc 'tốn thời gian' (This is where we put our long running process)
  */
-const getDataPromise = (thamSo) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(`This is my success data: ${thamSo}`)
-            // reject('This is the PROMISE error')
-        }, 2000)
-    })
-}
+// const getDataPromise = (thamSo) => {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve(`This is my success data: ${thamSo}`)
+//             // reject('This is the PROMISE error')
+//         }, 2000)
+//     })
+// }
 
-const myPromise = getDataPromise('Tham số của mình đưa vào')
+// const myPromise = getDataPromise('Tham số của mình đưa vào')
 
-myPromise.then(
-    (data) => {
-        console.log(data)
-    },
-    (err) => {
-        console.log(err)
-    }
-)
+// myPromise.then(
+//     (data) => {
+//         console.log(data)
+//     },
+//     (err) => {
+//         console.log(err)
+//     }
+// )
 
 
 /**
