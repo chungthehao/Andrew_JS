@@ -11,7 +11,7 @@ const game1 = new Hangman('Car Parts', 2)
 
 puzzleEle.textContent = game1.puzzle
 remainingGuessesEle.textContent = game1.statusMessage
-console.log(game1.status)
+// console.log(game1.status)
 
 window.addEventListener('keypress', (e) => {
     const character = String.fromCharCode(e.charCode)
@@ -20,59 +20,49 @@ window.addEventListener('keypress', (e) => {
 
     puzzleEle.textContent = game1.puzzle
     remainingGuessesEle.textContent = game1.statusMessage
-    console.log(game1.status)
+    // console.log(game1.status)
 })
 
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Making a HTTP request
- */
-const request = new XMLHttpRequest()
-
-request.addEventListener('readystatechange', (e) => {
-    // - Inside of this function, we're actually going to have this fire five different times, 
-    // one time for each 'readyState' change (0, 1, 2, 3, 4 [done])
-    if (e.target.readyState === 4 && e.target.status === 200) { // We have the final response
-        const data = JSON.parse(e.target.responseText)
-        console.log(data)
-    } else if (e.target.readyState === 4) {
-        console.log('An error has taken place!')
+getPuzzle((error, puzzle) => {
+    if (error) {
+        console.log(`Error: ${error}`)
+    } else {
+        console.log(puzzle)
     }
 })
 
-request.open('GET', 'http://puzzle.mead.io/puzzle?wordCount=3')
-request.send()
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Making a HTTP request (Challenge)
  */
-const countryCode = 'CA'
-const req = new XMLHttpRequest()
+// const countryCode = 'CA'
+// const req = new XMLHttpRequest()
 
-let count = 0
-req.addEventListener('readystatechange', e => {
-    console.log('Event fire: ' + ++count)
-    if (e.target.readyState === 4 && e.target.status === 200) {
-        const countries = JSON.parse(e.target.responseText)
-        const country = countries.find(country => country.alpha2Code === countryCode)
-        console.log(country.name)
-    } else if (e.target.readyState === 4) {
-        console.log('Something went wrong!')
-    }
-})
+// let count = 0
+// req.addEventListener('readystatechange', e => {
+//     console.log('Event fire: ' + ++count)
+//     if (e.target.readyState === 4 && e.target.status === 200) {
+//         const countries = JSON.parse(e.target.responseText)
+//         const country = countries.find(country => country.alpha2Code === countryCode)
+//         console.log(country.name)
+//     } else if (e.target.readyState === 4) {
+//         console.log('Something went wrong!')
+//     }
+// })
 
-req.open('GET', 'http://restcountries.eu/rest/v2/all')
-req.send()
+// req.open('GET', 'http://restcountries.eu/rest/v2/all')
+// req.send()
 
 
 
