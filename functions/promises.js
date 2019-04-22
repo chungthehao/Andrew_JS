@@ -87,7 +87,8 @@ getDataPromise(10).then(
 getDataPromise(3).then((data) => {
     return getDataPromise(data)
 }).then((data) => {
-    return getDataPromise(data)
+    // return getDataPromise(data)
+    return 'This is a test data!' // function trong then có thể là xử lý data resolve từ promise HOẶC data return trực tiếp
 }).then((data) => {
     console.log(data)
 }).catch((err) => {

@@ -23,15 +23,21 @@ window.addEventListener('keypress', (e) => {
     // console.log(game1.status)
 })
 
+// ** Dùng FETCH
+getPuzzle('2').then((puzzle) => {
+    console.log(puzzle)
+}).catch((err) => {
+    console.log(`Error: ${err}`)
+})
 // ** PROMISE
-getPuzzle('2').then(
-    (puzzle) => {
-        console.log(puzzle)
-    },
-    (err) => {
-        console.log(`Error: ${err}`)
-    }
-)
+// getPuzzle('2').then(
+//     (puzzle) => {
+//         console.log(puzzle)
+//     },
+//     (err) => {
+//         console.log(`Error: ${err}`)
+//     }
+// )
 // ** CALLBACK
 // getPuzzle('2', (error, puzzle) => {
 //     if (error) {
@@ -49,22 +55,16 @@ getPuzzle('2').then(
 // console.log('DO SOMETHING ELSE!!!')
 
 
-
-
-
-
-
-
 // ** PROMISE
-const countryCode = 'CA'
-getCountry(countryCode).then(
-    (country) => {
-        console.log(country.name)
-    },
-    (err) => {
-        console.log(err)
-    }
-)
+// const countryCode = 'CA'
+// getCountry(countryCode).then(
+//     (country) => {
+//         console.log(country.name)
+//     },
+//     (err) => {
+//         console.log(err)
+//     }
+// )
 // ** CALLBACK
 // const countryCode = 'CA'
 // getCountry(countryCode, (error, country) => {
@@ -73,6 +73,28 @@ getCountry(countryCode).then(
 //     } else {
 //         console.log(country.name)
 //     }
+// })
+
+
+/**
+ * FETCH API (1 cách mới thay cho XMLHttpRequest, có sẵn promise built in)
+ * - Nhớ rằng fetch có param2 để làm gì đó
+ * - Dùng fetch trả về 1 promise
+ * - Khi xài fetch là nó care dùm mình cái chuyện là chắc chắn done rồi (readyState = 4), mình chỉ cần lo là nó 200 hay 404 này nọ thôi
+ * - Trong then muốn dừng chạy và chạy code xử lý lỗi trong catch --> throw error
+ */
+// fetch('http://puzzle.mead.io/puzzle', {}).then((response) => {
+//     if (response.status === 200) {
+//         // **response.json() là trả về 1 promise, sẽ được resolve với 1 object data trong tương lai, 
+//         // thay vì response.json().then() tiếp mình return cái promise này để then bên ngoài
+//         return response.json()
+//     } else {
+//         throw new Error('Unable to fetch the puzzle!!')
+//     }
+// }).then((data) => {
+//     console.log(data.puzzle)
+// }).catch((error) => {
+//     console.log(error)
 // })
 
 
