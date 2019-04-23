@@ -54,7 +54,13 @@ getPuzzle('2').then((puzzle) => {
 
 // console.log('DO SOMETHING ELSE!!!')
 
-
+// ** FETCH
+const countryCode = 'CA'
+getCountry(countryCode).then((country) => {
+    console.log(country.name)
+}).catch((err) => {
+    console.log(err)
+})
 // ** PROMISE
 // const countryCode = 'CA'
 // getCountry(countryCode).then(

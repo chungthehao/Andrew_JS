@@ -28,21 +28,31 @@ const getPuzzle = (wordCount) => {
 
 
 const getCountry = (countryCode) => {
-    return new Promise((resolve, reject) => {
-        const req = new XMLHttpRequest()
+    // return new Promise((resolve, reject) => {
+    //     const req = new XMLHttpRequest()
 
-        req.addEventListener('readystatechange', e => {
-            if (e.target.readyState === 4 && e.target.status === 200) {
-                const countries = JSON.parse(e.target.responseText)
-                const country = countries.find(country => country.alpha2Code === countryCode)
-                resolve(country)
-            } else if (e.target.readyState === 4) {
-                reject('Something went wrong!')
-            }
-        })
+    //     req.addEventListener('readystatechange', e => {
+    //         if (e.target.readyState === 4 && e.target.status === 200) {
+    //             const countries = JSON.parse(e.target.responseText)
+    //             const country = countries.find(country => country.alpha2Code === countryCode)
+    //             resolve(country)
+    //         } else if (e.target.readyState === 4) {
+    //             reject('Something went wrong!')
+    //         }
+    //     })
 
-        req.open('GET', 'http://restcountries.eu/rest/v2/all')
-        req.send()
+    //     req.open('GET', 'http://restcountries.eu/rest/v2/all')
+    //     req.send()
+    // })
+
+    return fetch('http://restcountries.eu/rest/v2/all', {}).then((response) => {
+        if (response.status === 200) {
+            return response.json()
+        } else { // xong rồi mà ko thành công
+            throw new Error('Unable to fetch data!')
+        }
+    }).then((countries) => {
+        return countries.find(country => country.alpha2Code === countryCode)
     })
 }
 
