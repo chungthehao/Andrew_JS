@@ -55,12 +55,12 @@ getPuzzle('2').then((puzzle) => {
 // console.log('DO SOMETHING ELSE!!!')
 
 // ** FETCH
-const countryCode = 'CA'
-getCountry(countryCode).then((country) => {
-    console.log(country.name)
-}).catch((err) => {
-    console.log(err)
-})
+// const countryCode = 'CA'
+// getCountry(countryCode).then((country) => {
+//     console.log(country.name)
+// }).catch((err) => {
+//     console.log(err)
+// })
 // ** PROMISE
 // const countryCode = 'CA'
 // getCountry(countryCode).then(
@@ -196,3 +196,22 @@ getCountry(countryCode).then((country) => {
 //     return 'Đây là 1 method tự định nghĩa!'
 // }
 // console.log(product.someNewMethod())
+
+
+//==============================================================================
+// *** CHALLENGE AREA ***
+
+// getLocation().then(location => {
+//     console.log(`You are currently in ${location.city} ${location.region} ${location.country}.`)
+// }).catch(err => {
+//     console.log(err)
+// })
+
+// * PROMISE CHAINING
+getLocation().then(location => {
+    return getCountry(location.country)
+}).then((country) => {
+    console.log(`Your country name is ${country.name}.`)
+}).catch(err => {
+    console.log(err)
+})

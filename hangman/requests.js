@@ -1,3 +1,13 @@
+const getLocation = () => {
+    return fetch('http://ipinfo.io/json?token=3e1c5bffd88793', {}).then(response => {
+        if (response.status === 200) {
+            return response.json()
+        } else {
+            throw new Error('Có gì đó ko ổn!')
+        }
+    })
+}
+
 const getPuzzle = (wordCount) => {
     // return new Promise((resolve, reject) => {
     //     const request = new XMLHttpRequest()
