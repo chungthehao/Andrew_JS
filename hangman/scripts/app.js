@@ -5,8 +5,10 @@
  */
 
 const render = () => {
-    puzzleEle.textContent = game1.puzzle
+    puzzleEle.innerHTML = ''
     remainingGuessesEle.textContent = game1.statusMessage
+
+    puzzleEle.innerHTML = game1.puzzle.split('').map(letter => `<span>${letter}</span>`).join('')
 }
 
 const startGame = async () => {
