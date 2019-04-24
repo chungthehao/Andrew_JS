@@ -4,6 +4,17 @@
  * - Response   - What was actually done 
  */
 
+const render = () => {
+    puzzleEle.textContent = game1.puzzle
+    remainingGuessesEle.textContent = game1.statusMessage
+}
+
+const startGame = async () => {
+    const puzzle = await getPuzzle('2')
+    game1 = new Hangman(puzzle, 5)
+    render()
+}
+
 const puzzleEle = document.querySelector('#puzzle')
 const remainingGuessesEle = document.querySelector('#remaining-guesses')
 
@@ -16,20 +27,15 @@ window.addEventListener('keypress', (e) => {
     render()
 })
 
-const render = () => {
-    puzzleEle.textContent = game1.puzzle
-    remainingGuessesEle.textContent = game1.statusMessage
-}
-
-const startGame = async () => {
-    const puzzle = await getPuzzle('2')
-    game1 = new Hangman(puzzle, 5)
-    render()
-}
-
 document.querySelector('#reset').addEventListener('click', startGame)
 
 startGame()
+
+
+
+
+
+
 
 // ** Dùng FETCH
 // getPuzzle('2').then((puzzle) => {
