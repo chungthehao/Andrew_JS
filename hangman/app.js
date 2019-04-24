@@ -207,11 +207,16 @@ getPuzzle('2').then((puzzle) => {
 //     console.log(err)
 // })
 
+
 // * PROMISE CHAINING
-getLocation().then(location => {
-    return getCountry(location.country)
-}).then((country) => {
-    console.log(`Your country name is ${country.name}.`)
-}).catch(err => {
-    console.log(err)
-})
+// getLocation().then(location => {
+//     return getCountry(location.country)
+// }).then((country) => {
+//     console.log(`Your country name is ${country.name}.`)
+// }).catch(err => {
+//     console.log(err)
+// })
+
+getCurrentCountry()
+    .then(country => console.log(country.name))
+    .catch(err => console.log(err.message))

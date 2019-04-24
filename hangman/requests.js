@@ -1,11 +1,28 @@
-const getLocation = () => {
-    return fetch('http://ipinfo.io/json?token=3e1c5bffd88793', {}).then(response => {
-        if (response.status === 200) {
-            return response.json()
-        } else {
-            throw new Error('Có gì đó ko ổn!')
-        }
-    })
+const getCurrentCountry = async () => {
+    const location = await getLocation()
+    return getCountry(location.country)
+    // <=>
+    // const country = await getCountry(location.country)
+    // return country
+}
+
+const getLocation = async () => {
+    // *** Dùng FETCH
+    // return fetch('http://ipinfo.io/json?token=3e1c5bffd88793', {}).then(response => {
+    //     if (response.status === 200) {
+    //         return response.json()
+    //     } else {
+    //         throw new Error('Có gì đó ko ổn!')
+    //     }
+    // })
+
+    // *** Dùng ASYNC - AWAIT
+    const response = await fetch('http://ipinfo.io/json?token=3e1c5bffd88793', {})
+    if (response.status === 200) {
+        return response.json()
+    } else {
+        throw new Error('Có gì đó ko ổn!')
+    }
 }
 
 const getPuzzle = async (wordCount) => {
@@ -48,7 +65,7 @@ const getPuzzle = async (wordCount) => {
 }
 
 
-const getCountry = (countryCode) => {
+const getCountry = async (countryCode) => {
     // return new Promise((resolve, reject) => {
     //     const req = new XMLHttpRequest()
 
@@ -66,15 +83,25 @@ const getCountry = (countryCode) => {
     //     req.send()
     // })
 
-    return fetch('http://restcountries.eu/rest/v2/all', {}).then((response) => {
-        if (response.status === 200) {
-            return response.json()
-        } else { // xong rồi mà ko thành công
-            throw new Error('Unable to fetch data!')
-        }
-    }).then((countries) => {
+    // *** Dùng FETCH
+    // return fetch('http://restcountries.eu/rest/v2/all', {}).then((response) => {
+    //     if (response.status === 200) {
+    //         return response.json()
+    //     } else { // xong rồi mà ko thành công
+    //         throw new Error('Unable to fetch data!')
+    //     }
+    // }).then((countries) => {
+    //     return countries.find(country => country.alpha2Code === countryCode)
+    // })
+
+    // *** Dùng ASYNC - AWAIT
+    const response = await fetch('http://restcountries.eu/rest/v2/all', {})
+    if (response.status === 200) {
+        const countries = await response.json()
         return countries.find(country => country.alpha2Code === countryCode)
-    })
+    } else { // xong rồi mà ko thành công
+        throw new Error('Unable to fetch data!')
+    }    
 }
 
 
