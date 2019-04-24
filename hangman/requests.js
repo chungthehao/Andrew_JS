@@ -8,7 +8,8 @@ const getLocation = () => {
     })
 }
 
-const getPuzzle = (wordCount) => {
+const getPuzzle = async (wordCount) => {
+    // *** Dung Promise / XMLHttpRequest
     // return new Promise((resolve, reject) => {
     //     const request = new XMLHttpRequest()
 
@@ -25,15 +26,25 @@ const getPuzzle = (wordCount) => {
     //     request.send()
     // })
 
-    return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`, {}).then((response) => {
-        if (response.status === 200) {
-            return response.json() // return the promise that resolve with our json data
-        } else {
-            throw new Error('Unable to fetch puzzle!')
-        }
-    }).then((data) => {
+    // *** Dung Fetch API
+    // return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`, {}).then((response) => {
+    //     if (response.status === 200) {
+    //         return response.json() // return the promise that resolve with our json data
+    //     } else {
+    //         throw new Error('Unable to fetch puzzle!')
+    //     }
+    // }).then((data) => {
+    //     return data.puzzle
+    // })
+
+    // *** Dung Async - Await
+    const response = await fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`, {})
+    if (response.status === 200) {
+        const data = await response.json() // response.json() tra ve 1 promise
         return data.puzzle
-    })
+    } else {
+        throw new Error('Unable to fetch puzzle!')
+    }
 }
 
 
