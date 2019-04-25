@@ -39,24 +39,35 @@ const removeNote = noteId => {
 // Generate the DOM structure for a note
 const generateNoteDOM = note => {
     // Tạo element
-    const noteEl = document.createElement('div')
-    const textEl = document.createElement('a')
-    const button = document.createElement('button')
+    const noteEl = document.createElement('a')
+    const textEl = document.createElement('p')
+    // const button = document.createElement('button')
+    const statusEl = document.createElement('p')
 
-    // Setup the remove note button
-    button.innerHTML = "&#9932;"
-    noteEl.appendChild(button)
-    button.addEventListener('click', () => {
-        removeNote(note.id)
-        saveNotes(notes)
-        renderNotes(notes, filters)
-    })
+    // * Setup the remove note button
+    // button.innerHTML = "x"
+    // noteEl.appendChild(button)
+    // button.addEventListener('click', () => {
+    //     removeNote(note.id)
+    //     saveNotes(notes)
+    //     renderNotes(notes, filters)
+    // })
 
-    // Setup the note title text
+    // * Setup the note title text
     textEl.textContent = note.title.length ? note.title : 'Unnamed note'
-    textEl.setAttribute('href', `/edit.html#${note.id}`) // Cách 2
+    // textEl.setAttribute('href', `/edit.html#${note.id}`) // Cách 2
     // textEl.href = '/edit.html' // Cách 1
+    textEl.classList.add('list-item__title')
     noteEl.appendChild(textEl)
+
+    // * Setup the link
+    noteEl.setAttribute('href', `/edit.html#${note.id}`)
+    noteEl.classList.add('list-item')
+
+    // * Setup the status message
+    statusEl.textContent = getLastEditedMessage(note.updatedAt)
+    statusEl.classList.add('list-item__subtitle')
+    noteEl.appendChild(statusEl)
 
     return noteEl
 }
@@ -101,19 +112,28 @@ const sortNotes = (notes, sortBy) => {
 
 // Render application notes
 const renderNotes = (notes, filters) => {
+    const notesEl = document.querySelector('#notes')
+
     // Sort trước, lọc theo search sau
     notes = sortNotes(notes, filters.sortBy)
 
     const filteredNotes = notes.filter(note => note.title.toLowerCase().includes(filters.searchText.toLowerCase())) // || note.body.toLowerCase().includes(filters.searchText)
 
-    document.querySelector('#notes').innerHTML = '' // Xóa cái cũ trước khi re-render cái list notes mới
+    notesEl.innerHTML = '' // Xóa cái cũ trước khi re-render cái list notes mới
     
-    filteredNotes.forEach(note => {
-        const p = generateNoteDOM(note)
-
-        // Rendering
-        document.querySelector('#notes').appendChild(p)
-    })
+    if (filteredNotes.length > 0) {
+        filteredNotes.forEach(note => {
+            const p = generateNoteDOM(note)
+    
+            // Rendering
+            notesEl.appendChild(p)
+        })
+    } else {
+        const emptyMessage = document.createElement('p')
+        emptyMessage.textContent = 'No notes to show'
+        emptyMessage.classList.add('empty-message')
+        notesEl.appendChild(emptyMessage)
+    }
 }
 
 const saveNotes = notes => {
