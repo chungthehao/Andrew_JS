@@ -19,8 +19,10 @@ const saveTodos = todos => {
 
 // Render application todos based on filters
 const renderTodos = (todos, filters) => {
+    const todosEl = document.querySelector('#todos')
+
     // Reset div#todos
-    document.querySelector('#todos').innerHTML = ''
+    todosEl.innerHTML = ''
 
     // Lọc những todos match với searchText
     const filteredTodos = todos.filter(todo => {
@@ -32,12 +34,19 @@ const renderTodos = (todos, filters) => {
 
     // Todo summary
     const incompleteTodos = getIncompleteTodos(filteredTodos)
-    document.querySelector('#todos').appendChild(generateSummaryDOM(incompleteTodos))
+    todosEl.appendChild(generateSummaryDOM(incompleteTodos))
 
     // Xuất các todos ra 
-    filteredTodos.forEach(todo => {
-        document.querySelector('#todos').appendChild(generateTodoDOM(todo))
-    })
+    if (0 < filteredTodos.length) {
+        filteredTodos.forEach(todo => {
+            todosEl.appendChild(generateTodoDOM(todo))
+        })
+    } else {
+        const emptyMessage = document.createElement('p')
+        emptyMessage.textContent = 'No to-dos to show.'
+        emptyMessage.classList.add('empty-message')
+        todosEl.appendChild(emptyMessage)
+    }
 }
 
 // Delete a todo from the list by id
@@ -62,30 +71,37 @@ const toggleTodo = todoId => {
 
 // Get the DOM elements for an individual note
 const generateTodoDOM = todo => {
-    const todoEle = document.createElement('div')
+    const todoEle = document.createElement('label')
+    const containerEle = document.createElement('div')
     const checkboxEle = document.createElement('input')
     const textEle = document.createElement('span')
     const button = document.createElement('button')
 
-    // Setup the checkbox element
+    // * Setup the checkbox element
     checkboxEle.setAttribute('type', 'checkbox')
     /*if (todo.completed) {
         checkboxEle.setAttribute('checked', true)
     }*/
     checkboxEle.checked = todo.completed
-    todoEle.appendChild(checkboxEle)
+    containerEle.appendChild(checkboxEle)
     checkboxEle.addEventListener('change', () => {
         toggleTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
     })
 
-    // Setup the text element
+    // * Setup the text element
     textEle.textContent = todo.text
-    todoEle.appendChild(textEle)
+    containerEle.appendChild(textEle)
 
-    // Setup the remove button
-    button.innerHTML = '&#9932;'
+    // * Setup the container
+    todoEle.classList.add('list-item')
+    containerEle.classList.add('list-item__container')
+    todoEle.appendChild(containerEle)
+
+    // * Setup the remove button
+    button.innerHTML = 'remove'
+    button.classList.add('button', 'button--text')
     todoEle.appendChild(button)
     button.addEventListener('click', () => {
         removeTodo(todo.id)
@@ -99,7 +115,8 @@ const generateTodoDOM = todo => {
 // Get the DOM elements for list summary
 const generateSummaryDOM = incompleteTodos => {
     const summaryEle = document.createElement('h2')
-    summaryEle.textContent = `You have ${incompleteTodos.length} todos left`
+    summaryEle.textContent = `You have ${incompleteTodos.length} ${1 === incompleteTodos.length ? 'todo' : 'todos'} left`
+    summaryEle.classList.add('list-title')
 
     return summaryEle
 }

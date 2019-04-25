@@ -20,19 +20,21 @@ document.querySelector('#search-todo').addEventListener('input', e => {
 document.querySelector('#add-todo-form').addEventListener('submit', e => {
     e.preventDefault()
 
-    const newTodo = e.target.elements.toDo.value
-    e.target.elements.toDo.value = '' // wipe the input
-
-    // Update todos array
-    todos.push({
-        id: uuidv4(),
-        text: newTodo,
-        completed: false
-    })
+    const newTodo = e.target.elements.toDo.value.trim()
     
-    saveTodos(todos)
+    if (0 < newTodo.length) {
+        e.target.elements.toDo.value = '' // wipe the input
 
-    renderTodos(todos, filters) // Re-render todo list
+        // Update todos array
+        todos.push({
+            id: uuidv4(),
+            text: newTodo,
+            completed: false
+        })
+        
+        saveTodos(todos)
+        renderTodos(todos, filters) // Re-render todo list
+    }
 })
 
 document.querySelector('#hide-completed').addEventListener('change', e => {
