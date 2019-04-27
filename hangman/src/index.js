@@ -1,5 +1,13 @@
+import uuidv4 from 'uuid/v4'
+import validator from 'validator'
+
 import Hangman from './hangman'
 import getPuzzle from './requests'
+
+console.log(uuidv4())
+
+console.log(validator.isEmail('tao lao'))
+console.log(validator.isEmail('myemail@test.vn'))
 
 const render = () => {
     puzzleEle.innerHTML = ''
