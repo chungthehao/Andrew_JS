@@ -2,7 +2,7 @@ const path = require('path') // import module 'path'
 
 // COMMONJS MODULES
 module.exports = {
-    // Tải 'babel-polyfill' trước khi load application của mình --> để chạy được async - await
+    // Tải 'babel-polyfill' trước khi load application của mình --> để chạy được async ở file requests.js
     entry: ['babel-polyfill', './src/index.js'], // Nguồn chạy đầu tiên, nó import module nào thì lôi vào sau
     output: {
         // Cần chỉ ra đường dẫn tuyệt đối, cách tổng quát chỉ để chuyển qua máy khác, OS vẫn chạy ok
