@@ -1,28 +1,33 @@
-import { getNotes, createNote, removeNote, updateNote } from './notes'
-import { getFilters, setFilters } from './filters'
+import { createNote } from './notes'
+import { setFilters } from './filters'
+import { renderNotes } from './views'
 
-// console.log(getNotes())
-// createNote()
-// removeNote('456f870d-6ad0-456e-aff6-7bfc58032b84')
-// debugger
-// updateNote('7affa570-c1ea-47a4-85f5-c06382512624', {
-//     title: '  title 6                             ',
-//     body: ' body 6'
-// })
+renderNotes() // chạy lần đầu, initialize
 
-// let i = 0
-// let now = new Date().getSeconds()
-// while (i === 0) {
-//     if (new Date().getSeconds() - now > 2) {
-//         i = 1
-//     }
-// }
-
-// console.log(getNotes())
-
-console.log(getFilters())
-setFilters({
-    searchText: 'Office',
-    sortBy: 'byCreated'
+document.querySelector('#create-note').addEventListener('click', e => {
+    // create a new empty note to notes array
+    const noteId = createNote()
+    // Redirect to edit page
+    location.assign(`/edit.html#${noteId}`)
 })
-console.log(getFilters())
+
+document.querySelector('#search-text').addEventListener('input', e => {
+    // Update searchText khi ng dùng gõ search
+    setFilters({ searchText: e.target.value })
+    renderNotes() // render lại nội dung phù hợp với searchText mới
+})
+
+document.querySelector('#filter-by').addEventListener('change', e => {
+    setFilters({ sortBy: e.target.value })
+    renderNotes()
+})
+
+/**
+ * Global event
+ * Notice:  Remember that the storage event does not fire 
+ *          for the page that actually changed local storage.
+ */
+window.addEventListener('storage', e => {
+    if (e.key === 'notes') 
+        renderNotes()
+})

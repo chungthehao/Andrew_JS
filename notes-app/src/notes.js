@@ -28,6 +28,7 @@ const createNote = () => {
         updatedAt: nowTimestamp
     })
     saveNotes()
+    return noteId
 }
 
 // Save the notes to localStorage
@@ -93,13 +94,13 @@ const updateNote = (noteId, updateInfo) => {
         note.title = updateInfo.title.trim()
         note.updatedAt = moment().valueOf()
     }
-
     if (typeof updateInfo.body === 'string' && updateInfo.body.trim() !== '') {
         note.body = updateInfo.body.trim()
         note.updatedAt = moment().valueOf()
     }
 
     saveNotes()
+    return note
 }
 
 notes = loadNotes()
