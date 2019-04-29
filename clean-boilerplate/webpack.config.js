@@ -18,9 +18,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [
-                            'env'
-                        ]
+                        presets: ['env'],
+                        plugins: ['transform-object-rest-spread'] // để xài được spread operator với object
                     }
                 }
             },

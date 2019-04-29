@@ -30,3 +30,26 @@ let animals = ['monkey', 'mouse', 'dog', 'cat']
 animals = [...animals, 'pig'] // <=> Array.prototype.push()
 
 console.log(animals)
+
+//---------------- THE SPREAD OPERATOR FOR OBJECT ----------------
+let house = {
+    bedrooms: 2,
+    bathrooms: 1.5,
+    yearBuilt: 2017 
+}
+let newHouse = {
+    basement: true,
+    bathrooms: 5, // Sẽ bị property trong object house override
+    ...house,
+    bedrooms: 8 // override lên property có trong object house
+}
+newHouse.yearBuilt = 2018
+
+console.log(house)
+console.log(newHouse)
+
+// ------------- CHALLENGE: merge 2 objects -------------
+const person = { name: 'Henry', age: 27 }
+const location = { city: 'HCM', country: 'VN' }
+const overview = { ...person, ...location }
+console.log(overview)
