@@ -3,7 +3,7 @@ import { getFilters } from "./filters";
 
 const renderTodos = () => {
     const todos = getTodos()
-    const filters = getFilters()
+    const { searchText, hideCompleted } = getFilters() // Destructuring cái obj được trả về
     const todosEl = document.querySelector('#todos')
 
     // Reset div#todos
@@ -11,10 +11,10 @@ const renderTodos = () => {
 
     // Lọc những todos match với searchText
     const filteredTodos = todos.filter(todo => {
-        if ( ! filters.hideCompleted) {
-            return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        if ( ! hideCompleted) {
+            return todo.text.toLowerCase().includes(searchText.toLowerCase())
         }
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase()) && !todo.completed
+        return todo.text.toLowerCase().includes(searchText.toLowerCase()) && !todo.completed
     })
 
     // Todo summary
