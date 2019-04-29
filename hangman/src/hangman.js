@@ -30,7 +30,8 @@ class Hangman {
         if (this.guessedLetters.includes(char)) return;
         
         // Cập nhật những chữ cái người chơi đã đoán
-        this.guessedLetters.push(char)
+        // this.guessedLetters.push(char) // Cách 1
+        this.guessedLetters = [...this.guessedLetters, char] // Cách 2
         
         // Nếu chữ cái ng chơi đoán ko nằm trong chữ thì giảm lượt đoán
         if ( ! this.word.includes(char)) 
